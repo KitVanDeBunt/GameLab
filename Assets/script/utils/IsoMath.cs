@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class IsoMAth : MonoBehaviour {
+public class IsoMath : MonoBehaviour {
 
 	private static float tileW = 0.69f;
 	private static float tileH = 0.41f;
@@ -16,8 +16,8 @@ public class IsoMAth : MonoBehaviour {
 		//px -= displacementX;
 		//py -= displacementY;
 		
-		float tx = 1 / tileW * px - 1 / tileH * py + 0.5f + 1;
-		float ty = 1 / tileW * px + 1 / tileH * py - 0.5f + 1;
+		float tx = 1 / tileW * px - 1 / tileH * py + 0.5f;
+		float ty = 1 / tileW * px + 1 / tileH * py - 0.5f +1;
 		return new Vector2(tx, ty);
 	}
 
