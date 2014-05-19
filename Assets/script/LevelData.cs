@@ -4,24 +4,31 @@ public class LevelData : MonoBehaviour{
 
 	[SerializeField]
 	private GameObject[] tiles;
-
+	[SerializeField]
+	private GameObject[] objects;
+	
 	private static GameObject[] staticTiles;
+	private static GameObject[] staticObjects;
 
-	internal static GameObject[,] GroundTiles;
+	internal static GameObject[,] LoadedGroundTiles;
+	internal static GameObject[,] GroundVehicles;
 	internal static int width,height;
 	internal static int[,] tileData;
+	internal static int[,] objectData;
 
 	private static int w,h;
 
 	private void Start(){
 		staticTiles = tiles;
+		staticObjects = objects;
 		LoadLevelData ();
 	}
 
 	public static void LoadLevelData ()
 	{
 		LoadTest ();
-		Build (tileData);
+		BuildTiles (tileData);
+		BuildObjects(objectData);
 	}
 
 	private static void LoadTest ()
@@ -34,37 +41,52 @@ public class LevelData : MonoBehaviour{
 			{ 1, 2, 2, 1, 2, 2, 2, 2, 2, 1}
 		};
 		//Debug.Log (tileData[0,7]);
-		tileData = RandomTestData (20,20);
+		tileData = RandomTestData (20,20,new int[]{0,1,2});
 		width = tileData.GetLength(0);
 		height = tileData.GetLength(1);
+		
+		objectData = RandomTestData (20,20,new int[]{0,0,0,0,0,0,1});
 	}
 
-	private static int[,] RandomTestData(int width,int height){
+	private static int[,] RandomTestData(int width,int height, int[] choice){
 		int[,] data;
 		data = new int[width,height];
 		
 		for (h = 0; h<height; h++) {
 			for (w = 0; w<width; w++) {
-				data [w, h] = (int)Random.Range(0,3);
+				data [w, h] = (int)Random.Range(0,choice.Length);
+				data [w, h] = choice[data [w, h]];
 			}
 		}
 		return data;
 	}
-
-	private static void Build (int[,] data) {
-		Debug.Log ("width: "+LevelData.width+" height: "+LevelData.height);
-		LevelData.tileData = new int[LevelData.width, LevelData.height];
-		GroundTiles = new GameObject[LevelData.width,LevelData.height];
-		int XisoDisplace = 0;
-		for (h = 0; h<LevelData.height; h++) {
-			if(h%2 == 0){ 
-				XisoDisplace+=1;
+	
+	private static void BuildObjects (int[,] data) {
+		Debug.Log ("width: "+width+" height: "+height);
+		GroundVehicles = new GameObject[width,height];
+		for (h = 0; h<height; h++) {
+			for (w = 0; w<width; w++) {
+				int objectID = data[w,h];
+				if(objectID != 0){
+					objectID -= 1;
+					Vector2 pos = IsoMath.tileToWorld(w,h);
+					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y,0), new Quaternion ());
+					
+					GroundVehicles[w,h] = (GameObject)tile;
+				}
 			}
-			for (w = 0; w<LevelData.width; w++) {
+		}
+	}
+
+	private static void BuildTiles (int[,] data) {
+		Debug.Log ("width: "+width+" height: "+height);
+		LoadedGroundTiles = new GameObject[width,height];
+		for (h = 0; h<height; h++) {
+			for (w = 0; w<width; w++) {
 				Vector2 pos = IsoMath.tileToWorld(w,h);
 				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y,0), new Quaternion ());
 				
-				GroundTiles[w,h] = (GameObject)tile;
+				LoadedGroundTiles[w,h] = (GameObject)tile;
 			}
 		}
 	}
