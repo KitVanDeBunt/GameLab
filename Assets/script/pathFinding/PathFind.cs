@@ -13,7 +13,7 @@ public struct Node
 
 public class PathFind : MonoBehaviour {
 	private void Start(){
-		FindPath (new int[]{0,0}, new int[]{10,10}, LevelData.GroundVehicles);
+
 	}
 
 	public static Vector2[] FindPath (int[] A,int[] B, GameObject[,] collisionArray){
@@ -25,7 +25,7 @@ public class PathFind : MonoBehaviour {
 
 		while (false) {
 		}
-
+		print ("Start: "+A);
 
 		if (false) {
 			return new Vector2[] {new Vector2(9,5)};

@@ -43,5 +43,11 @@ public class IsoMath : MonoBehaviour {
 			return null;
 		}
 	}
+
+	public static VecInt[] Area(VecInt a,VecInt b){
+		print ("A ("+a.x+","+ a.y+")");
+		print ("b ("+b.x+","+ b.y+")");
+		return new VecInt[]{};
+	}
 }
 

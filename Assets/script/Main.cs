@@ -7,7 +7,9 @@ public class Main : MonoBehaviour {
 	
 	private bool mouseDown = false;
 	private Vector2 oldPos;
-	private int? selectedID;
+	private int[] selectedIDs;
+	private int[] location;
+	private bool multiselect;
 
 	private void Start(){
 		GameInput.init(this);
@@ -22,13 +24,26 @@ public class Main : MonoBehaviour {
 		if(TilePosN!= null){
 			Vector2 TilePos = (Vector2)TilePosN;
 			//print ("tile: " + TilePos + "\n");
-			if(Input.GetMouseButtonDown(0)){
+			if(Input.GetMouseButtonDown(0)&&Input.GetKeyDown(KeyCode.RightControl)){
+				multiselect = true;
+			}else if(Input.GetMouseButtonDown(0)){
 				GameObject selected = LevelData.GroundVehicles [(int)Mathf.Floor (TilePos.x), (int)Mathf.Floor (TilePos.y)];
 				if(selected != null){
-					selectedID = selected.GetInstanceID();
-					EventManager.CallOnSelect((int)selectedID);
+					selectedIDs = new int[]{selected.GetInstanceID()};
+					Debug.Log("selected: "+selectedIDs.Length);
+					EventManager.CallOnSelect(selectedIDs);
 				}else{
-					selectedID = null;
+					selectedIDs = new int[]{};
+					Debug.Log("not selected: "+selectedIDs.Length);
+					EventManager.CallOnSelect(selectedIDs);
+				}
+			}else if(Input.GetMouseButtonDown(1)){
+				print ("mouse1");
+				if(selectedIDs.Length > 0){
+					PathFind.FindPath (
+					new int[]{(int)Mathf.Floor (TilePos.x),(int)Mathf.Floor (TilePos.y)}
+					, new int[]{10,10}
+					, LevelData.GroundVehicles);
 				}
 			}
 		}
