@@ -30,11 +30,11 @@ public class LevelData : MonoBehaviour{
 	}
 
 	public static void LoadLevelData () {
-		generator.Generate(20);
+		generator.Generate(50);
 
 		width = tileData.GetLength(0);
 		height = tileData.GetLength(1);
-		objectData = RandomTestData (20,20,new int[]{0,0,0,0,0,0,1});
+		objectData = RandomTestData (50,50,new int[]{0,0,0,0,0,0,1});
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
@@ -56,13 +56,13 @@ public class LevelData : MonoBehaviour{
 	private static void BuildObjects (int[,] data) {
 		Debug.Log ("width: "+width+" height: "+height);
 		GroundVehicles = new GameObject[width,height];
-		for (h = 0; h<height; h++) {
-			for (w = 0; w<width; w++) {
+		for (h = 0; h < height; h++) {
+			for (w = 0; w < width; w++) {
 				int objectID = data[w,h];
 				if(objectID != 0){
 					objectID -= 1;
 					Vector2 pos = IsoMath.tileToWorld(w,h);
-					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y,0), new Quaternion ());
+					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, (pos.x * pos.y) / 40f + 5f), new Quaternion ());
 					
 					GroundVehicles[w,h] = (GameObject)tile;
 				}
@@ -73,10 +73,10 @@ public class LevelData : MonoBehaviour{
 	private static void BuildTiles (int[,] data) {
 		Debug.Log ("width: "+width+" height: "+height);
 		LoadedGroundTiles = new GameObject[width,height];
-		for (h = 0; h<height; h++) {
-			for (w = 0; w<width; w++) {
+		for (h = 0; h < height; h++) {
+			for (w = 0; w < width; w++) {
 				Vector2 pos = IsoMath.tileToWorld(w,h);
-				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y,0), new Quaternion ());
+				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y, (pos.x * pos.y) / 40f + 10f), new Quaternion ());
 				
 				LoadedGroundTiles[w,h] = (GameObject)tile;
 			}
