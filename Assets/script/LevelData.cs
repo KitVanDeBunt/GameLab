@@ -18,6 +18,8 @@ public class LevelData : MonoBehaviour{
 	public static int[,] tileData;
 	public static int[,] objectData;
 
+	public static int size;
+
 	private static int w,h;
 
 	private void Start(){
@@ -30,11 +32,13 @@ public class LevelData : MonoBehaviour{
 	}
 
 	public static void LoadLevelData () {
-		generator.Generate(50);
+		size = 50;
+
+		generator.Generate(size);
 
 		width = tileData.GetLength(0);
 		height = tileData.GetLength(1);
-		objectData = RandomTestData (50,50,new int[]{0,0,0,0,0,0,1});
+		objectData = RandomTestData (size,size,new int[]{0,0,0,0,0,0,1});
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
@@ -62,7 +66,7 @@ public class LevelData : MonoBehaviour{
 				if(objectID != 0){
 					objectID -= 1;
 					Vector2 pos = IsoMath.tileToWorld(w,h);
-					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, (pos.x * pos.y) / 40f + 5f), new Quaternion ());
+					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion ());
 					
 					GroundVehicles[w,h] = (GameObject)tile;
 				}
@@ -76,7 +80,7 @@ public class LevelData : MonoBehaviour{
 		for (h = 0; h < height; h++) {
 			for (w = 0; w < width; w++) {
 				Vector2 pos = IsoMath.tileToWorld(w,h);
-				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y, (pos.x * pos.y) / 40f + 10f), new Quaternion ());
+				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 10f), new Quaternion ());
 				
 				LoadedGroundTiles[w,h] = (GameObject)tile;
 			}
