@@ -21,5 +21,27 @@ public class IsoMath : MonoBehaviour {
 		return new Vector2(tx, ty);
 	}
 
+	
+	public static Vector2 getMouseWorldPosition(){
+		Vector2 returnValue;
+		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Vector3 mousePosition = new Vector3(mouseRay.origin.x,mouseRay.origin.y,0);
+		Vector2 mousePos2D = new Vector2(mouseRay.origin.x,mouseRay.origin.y);
+		return mousePos2D;
+	}
+	
+	public static Vector2? getMouseTilePosition(){
+		Vector2 mousePos2D = getMouseWorldPosition();
+		Vector2 TilePos = IsoMath.worldToTile(mousePos2D.x,mousePos2D.y);
+		//print ("world pos : "+mousePos2D+"\n");
+		if (TilePos.x < LevelData.width && TilePos.x > 0 &&
+		    TilePos.y < LevelData.height && TilePos.y > 0) {
+			//print ("tile pos: " + TilePos + "\n");
+			//LevelData.GroundVehicles [(int)Mathf.Floor (TilePos.x), (int)Mathf.Floor (TilePos.y)].GetComponent<SpriteRenderer> ().color = new Color32 (0, 255, 0, 255);
+			return TilePos;
+		} else {
+			return null;
+		}
+	}
 }
 

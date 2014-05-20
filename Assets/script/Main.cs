@@ -7,6 +7,7 @@ public class Main : MonoBehaviour {
 	
 	private bool mouseDown = false;
 	private Vector2 oldPos;
+	private int? selectedID;
 	
 	private void Update(){
 		if(Input.GetKey(KeyCode.R)){
@@ -17,15 +18,17 @@ public class Main : MonoBehaviour {
 	}
 	
 	private void UpdateSelect(){
-		Vector2? TilePosN = getTilePosition();
+		Vector2? TilePosN = IsoMath.getMouseTilePosition();
 		if(TilePosN!= null){
 			Vector2 TilePos = (Vector2)TilePosN;
 			//print ("tile: " + TilePos + "\n");
 			if(Input.GetMouseButtonDown(0)){
 				GameObject selected = LevelData.GroundVehicles [(int)Mathf.Floor (TilePos.x), (int)Mathf.Floor (TilePos.y)];
 				if(selected != null){
-					int selectedID = selected.GetInstanceID();
-					EventManager.CallOnSelect(selectedID);
+					selectedID = selected.GetInstanceID();
+					EventManager.CallOnSelect((int)selectedID);
+				}else{
+					selectedID = null;
 				}
 			}
 		}
@@ -66,26 +69,5 @@ public class Main : MonoBehaviour {
 			}
 		}
 	}
-	
-	private Vector2 getMouseWorldPosition(){
-		Vector2 returnValue;
-		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Vector3 mousePosition = new Vector3(mouseRay.origin.x,mouseRay.origin.y,0);
-		Vector2 mousePos2D = new Vector2(mouseRay.origin.x,mouseRay.origin.y);
-		return mousePos2D;
-	}
 
-	private Vector2? getTilePosition(){
-		Vector2 mousePos2D = getMouseWorldPosition();
-		Vector2 TilePos = IsoMath.worldToTile(mousePos2D.x,mousePos2D.y);
-		//print ("world pos : "+mousePos2D+"\n");
-		if (TilePos.x < LevelData.width && TilePos.x > 0 &&
-			TilePos.y < LevelData.height && TilePos.y > 0) {
-			//print ("tile pos: " + TilePos + "\n");
-			//LevelData.GroundVehicles [(int)Mathf.Floor (TilePos.x), (int)Mathf.Floor (TilePos.y)].GetComponent<SpriteRenderer> ().color = new Color32 (0, 255, 0, 255);
-			return TilePos;
-		} else {
-			return null;
-		}
-	}
 }
