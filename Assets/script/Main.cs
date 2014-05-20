@@ -8,16 +8,16 @@ public class Main : MonoBehaviour {
 	private bool mouseDown = false;
 	private Vector2 oldPos;
 	private int? selectedID;
-	
+
+	private void Start(){
+		GameInput.init(this);
+	}
+
 	private void Update(){
-		if(Input.GetKey(KeyCode.R)){
-			UpdateMove ();
-		}else{
-			UpdateSelect();
-		}
+		GameInput.updateInput();
 	}
 	
-	private void UpdateSelect(){
+	public void UpdateSelect(){
 		Vector2? TilePosN = IsoMath.getMouseTilePosition();
 		if(TilePosN!= null){
 			Vector2 TilePos = (Vector2)TilePosN;
@@ -35,7 +35,7 @@ public class Main : MonoBehaviour {
 	}
 	
 	
-	private void UpdateMove(){
+	public void UpdateMove(){
 		/*if(Input.touchCount > 1 && Input.touchCount < 3){
 			if(Input.TouchPhase ==TouchPhase.Began)
 			   }else{

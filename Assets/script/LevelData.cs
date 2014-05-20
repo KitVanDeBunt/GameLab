@@ -10,42 +10,34 @@ public class LevelData : MonoBehaviour{
 	private static GameObject[] staticTiles;
 	private static GameObject[] staticObjects;
 
-	internal static GameObject[,] LoadedGroundTiles;
-	internal static GameObject[,] GroundVehicles;
-	internal static int width,height;
-	internal static int[,] tileData;
-	internal static int[,] objectData;
+	private static IGenerator generator;
+
+	public static GameObject[,] LoadedGroundTiles;
+	public static GameObject[,] GroundVehicles;
+	public static int width,height;
+	public static int[,] tileData;
+	public static int[,] objectData;
 
 	private static int w,h;
 
 	private void Start(){
 		staticTiles = tiles;
 		staticObjects = objects;
+
+		generator = new GeneratorTest();
+
 		LoadLevelData ();
 	}
 
-	public static void LoadLevelData ()
-	{
-		LoadTest ();
-		BuildTiles (tileData);
-		BuildObjects(objectData);
-	}
+	public static void LoadLevelData () {
+		generator.Generate(20);
 
-	private static void LoadTest ()
-	{
-		tileData = new int[4,10]{ 
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-			{ 1, 2, 0, 1, 2, 2, 2, 2, 2, 1},
-			
-			{ 1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-			{ 1, 2, 2, 1, 2, 2, 2, 2, 2, 1}
-		};
-		//Debug.Log (tileData[0,7]);
-		tileData = RandomTestData (20,20,new int[]{0,1,2});
 		width = tileData.GetLength(0);
 		height = tileData.GetLength(1);
-		
 		objectData = RandomTestData (20,20,new int[]{0,0,0,0,0,0,1});
+
+		BuildTiles (tileData);
+		BuildObjects(objectData);
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
