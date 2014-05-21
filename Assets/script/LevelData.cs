@@ -87,7 +87,7 @@ public class LevelData : MonoBehaviour{
 		}
 
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
-		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[0], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion());
+		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[0], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		return true;
 	}
 	
