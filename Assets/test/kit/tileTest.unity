@@ -567,3 +567,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+  multiSelectArea: {fileID: 599586838}
