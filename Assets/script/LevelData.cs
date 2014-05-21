@@ -6,9 +6,12 @@ public class LevelData : MonoBehaviour{
 	private GameObject[] tiles;
 	[SerializeField]
 	private GameObject[] objects;
+	[SerializeField]
+	private GameObject[] buildings;
 	
 	private static GameObject[] staticTiles;
 	private static GameObject[] staticObjects;
+	private static GameObject[] staticBuildings;
 
 	private static IGenerator generator;
 
@@ -17,6 +20,7 @@ public class LevelData : MonoBehaviour{
 	public static int width,height;
 	public static int[,] tileData;
 	public static int[,] objectData;
+	private static bool[,] collsionData;
 
 	public static int size;
 
@@ -25,6 +29,7 @@ public class LevelData : MonoBehaviour{
 	private void Start(){
 		staticTiles = tiles;
 		staticObjects = objects;
+		staticBuildings = buildings;
 
 		generator = new GeneratorTest();
 
@@ -38,10 +43,12 @@ public class LevelData : MonoBehaviour{
 
 		width = tileData.GetLength(0);
 		height = tileData.GetLength(1);
+		collsionData = new bool[size,size];
 		objectData = RandomTestData (size,size,new int[]{0,0,0,0,0,0,1});
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
+		constructBuilding(8, 8);
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
@@ -55,6 +62,16 @@ public class LevelData : MonoBehaviour{
 			}
 		}
 		return data;
+	}
+
+	public static bool constructBuilding(int x, int y) {
+		if(collsionData[x, y]) {
+			return false;
+		}
+		
+		Vector2 pos = IsoMath.tileToWorld(x,y);
+		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[0], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion());
+		return true;
 	}
 	
 	private static void BuildObjects (int[,] data) {
