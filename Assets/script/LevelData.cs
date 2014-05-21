@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+
 public class LevelData : MonoBehaviour{
 
 	[SerializeField]
@@ -53,7 +54,14 @@ public class LevelData : MonoBehaviour{
 		{
 			for(int test2 = 0; test2 < 50; test2+=2)
 			{
-				constructBuilding(test1, test2, 2);
+				if(test1 % 2 == 0)
+				{
+					constructBuilding(test1, test2, 0, 2);
+				}
+				else
+				{
+					constructBuilding(test1, test2, 1, 2);
+				}
 			}
 		}
 	}
@@ -71,7 +79,7 @@ public class LevelData : MonoBehaviour{
 		return data;
 	}
 
-	public static bool constructBuilding(int x, int y, int size) {
+	public static bool constructBuilding(int x, int y, int id, int size) {
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
 				if(collsionData[x + i, y + j]) {
@@ -87,7 +95,7 @@ public class LevelData : MonoBehaviour{
 		}
 
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
-		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[0], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
+		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		return true;
 	}
 	
