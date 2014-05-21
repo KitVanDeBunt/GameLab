@@ -48,7 +48,14 @@ public class LevelData : MonoBehaviour{
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
-		constructBuilding(8, 8);
+
+		for(int test1 = 0; test1 < 50; test1+=2)
+		{
+			for(int test2 = 0; test2 < 50; test2+=2)
+			{
+				constructBuilding(test1, test2, 2);
+			}
+		}
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
@@ -64,12 +71,22 @@ public class LevelData : MonoBehaviour{
 		return data;
 	}
 
-	public static bool constructBuilding(int x, int y) {
-		if(collsionData[x, y]) {
-			return false;
+	public static bool constructBuilding(int x, int y, int size) {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(collsionData[x + i, y + j]) {
+					return false;
+				}
+			}
 		}
-		
-		Vector2 pos = IsoMath.tileToWorld(x,y);
+
+		for(int k = 0; k < size; k++) {
+			for(int l = 0; l < size; l++) {
+				collsionData[x + k, y + l] = true;
+			}
+		}
+
+		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[0], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion());
 		return true;
 	}
@@ -86,6 +103,7 @@ public class LevelData : MonoBehaviour{
 					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion ());
 					
 					GroundVehicles[w,h] = (GameObject)tile;
+					collsionData[w,h] = true;
 				}
 			}
 		}
