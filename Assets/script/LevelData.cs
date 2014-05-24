@@ -64,21 +64,7 @@ public class LevelData : MonoBehaviour{
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
-
-		for(int test1 = 0; test1 < 50; test1+=2)
-		{
-			for(int test2 = 0; test2 < 50; test2+=2)
-			{
-				if(test1 % 2 == 0)
-				{
-					constructBuilding(test1, test2, 0, 2);
-				}
-				else
-				{
-					constructBuilding(test1, test2, 1, 2);
-				}
-			}
-		}
+		BuildBuildings();
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
@@ -93,8 +79,23 @@ public class LevelData : MonoBehaviour{
 		}
 		return data;
 	}
+	
+	private static void BuildBuildings(){
+		for(int test1 = 0; test1 < 50; test1+=2){
+			for(int test2 = 0; test2 < 50; test2+=2){
+				int ran = (int)Random.Range(0,5);
+				if(ran == 0){
+					if(test1 % 4 == 0){
+						constructBuilding(test1, test2, 0, 2);
+					}else{
+						constructBuilding(test1, test2, 1, 2);
+					}
+				}
+			}
+		}
+	}
 
-	public static bool constructBuilding(int x, int y, int id, int size) {
+	private static bool constructBuilding(int x, int y, int id, int size) {
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
 				if(collsionData[x + i, y + j]) {
