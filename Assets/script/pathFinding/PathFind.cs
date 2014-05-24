@@ -145,11 +145,11 @@ public class PathFind : MonoBehaviour {
 					}
 					open.Add(newN);
 				}
-				closed.Add(currentN);
-				open.Remove(currentN);
 				if(endFound){
 					break;
 				}
+				closed.Add(currentN);
+				open.Remove(currentN);
 			}
 			if(endFound){
 				break;
