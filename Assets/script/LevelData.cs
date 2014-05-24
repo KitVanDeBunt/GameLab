@@ -1,6 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+public class MapObject{
+	public GameObject gameObject;
+	public VecInt pos;
+	public MapObject(GameObject _gameObject,VecInt _pos){
+		gameObject = _gameObject;
+		pos = _pos;
+	}
+}
+
 public class LevelData : MonoBehaviour{
 
 	[SerializeField]
@@ -17,11 +26,17 @@ public class LevelData : MonoBehaviour{
 	private static IGenerator generator;
 
 	public static GameObject[,] LoadedGroundTiles;
-	public static GameObject[,] GroundVehicles;
+	public static MapObject[,] GroundVehicles;
 	public static int width,height;
 	public static int[,] tileData;
 	public static int[,] objectData;
 	private static bool[,] collsionData;
+	
+	public static bool[,] CollsionData{
+		get{
+			return collsionData;
+		}
+	}
 
 	public static int size;
 
@@ -101,7 +116,7 @@ public class LevelData : MonoBehaviour{
 	
 	private static void BuildObjects (int[,] data) {
 		Debug.Log ("width: "+width+" height: "+height);
-		GroundVehicles = new GameObject[width,height];
+		GroundVehicles = new MapObject[width,height];
 		for (h = 0; h < height; h++) {
 			for (w = 0; w < width; w++) {
 				int objectID = data[w,h];
@@ -110,7 +125,7 @@ public class LevelData : MonoBehaviour{
 					Vector2 pos = IsoMath.tileToWorld(w,h);
 					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion ());
 					
-					GroundVehicles[w,h] = (GameObject)tile;
+					GroundVehicles[w,h] = new MapObject(tile,new VecInt(w,h));
 					collsionData[w,h] = true;
 				}
 			}

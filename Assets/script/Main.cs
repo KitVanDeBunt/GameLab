@@ -11,6 +11,7 @@ public class Main : MonoBehaviour {
 	private bool mouseDown = false;
 	private Vector2 oldPos;
 	private int[] selectedIDs;
+	private List<MapObject> selected = new List<MapObject>();
 	private int[] location;
 	private bool multiselect;
 	private Vector3 startMousePos;
@@ -23,6 +24,7 @@ public class Main : MonoBehaviour {
 
 	private void Update(){
 		GameInput.updateInput();
+		PathFind.Update();
 	}
 	
 	public void UpdateSelect(){
@@ -36,16 +38,18 @@ public class Main : MonoBehaviour {
 			if (Input.GetMouseButtonUp (0)) {
 				VecInt[] selectedArea = IsoMath.Area(startTilePos,areaWidth,areaHeight,new Rect?(new Rect(0,0,LevelData.width,LevelData.height)));
 				List<int> tempSelectedIds = new List<int>(); 
+				selected.Clear();
 				for(int i = 0;i < selectedArea.Length;i++){
 					//Debug.Log("selected: ("+selectedArea[i].x+","+selectedArea[i].y+")");
 					LevelData.LoadedGroundTiles[selectedArea[i].x,selectedArea[i].y].GetComponent<SpriteRenderer>().color = new Color(0,0,1,1);
-					GameObject selected = LevelData.GroundVehicles [(int)Mathf.Floor (selectedArea[i].x), (int)Mathf.Floor (selectedArea[i].y)];
-					if(selected != null){
-						tempSelectedIds.Add(selected.GetInstanceID());
+					MapObject Tempselected = LevelData.GroundVehicles [(int)selectedArea[i].x, (int)selectedArea[i].y];
+					if(Tempselected != null){
+						tempSelectedIds.Add(Tempselected.gameObject.GetInstanceID());
+						selected.Add(Tempselected);
 					}
 				}
 				selectedIDs = tempSelectedIds.ToArray();
-				Debug.Log("selected: "+selectedIDs.Length);
+				Debug.Log("[Main] selected: "+selectedIDs.Length);
 				EventManager.CallOnSelect(selectedIDs);
 				multiselect = false;
 				multiSelectArea.SetActive(false);
@@ -62,26 +66,29 @@ public class Main : MonoBehaviour {
 					multiSelectArea.transform.position = startMousePos;
 					multiSelectArea.transform.localScale = Vector3.zero;
 					startTilePos = new VecInt((int)TilePos.x,(int)TilePos.y);
-					Debug.Log("Multiselect: "+startTilePos);//+selectedIDs.Length);
+					Debug.Log("[Main] Multiselect: "+startTilePos);//+selectedIDs.Length);
 				}else if(Input.GetMouseButtonDown(0)){
 				//single select
-					GameObject selected = LevelData.GroundVehicles [(int)Mathf.Floor (TilePos.x), (int)Mathf.Floor (TilePos.y)];
-					if(selected != null){
-						selectedIDs = new int[]{selected.GetInstanceID()};
-						Debug.Log("selected: "+selectedIDs.Length);
+					selected.Clear();
+					MapObject Tempselected = LevelData.GroundVehicles [(int)TilePos.x, (int)TilePos.y];
+					if(Tempselected != null){
+						selected.Add(LevelData.GroundVehicles [(int)TilePos.x, (int)TilePos.y]);
+						selectedIDs = new int[]{selected[0].gameObject.GetInstanceID()};
+						Debug.Log("[Main] selected: "+selectedIDs.Length);
 						EventManager.CallOnSelect(selectedIDs);
 					}else{
+						selected.Clear();
 						selectedIDs = new int[]{};
-						Debug.Log("not selected: "+selectedIDs.Length);
+						Debug.Log("[Main] not selected: "+selectedIDs.Length);
 						EventManager.CallOnSelect(selectedIDs);
 					}
 				}else if(Input.GetMouseButtonDown(1)){
-					print ("mouse1");
 					if(selectedIDs.Length > 0){
+						print ("[Main] find path");
 						PathFind.FindPath (
-						new int[]{(int)Mathf.Floor (TilePos.x),(int)Mathf.Floor (TilePos.y)}
-						, new int[]{10,10}
-						, LevelData.GroundVehicles);
+							new VecInt(selected[0].pos.x,selected[0].pos.y)
+						, new VecInt((int)TilePos.x,(int)TilePos.y)
+						, LevelData.CollsionData);
 					}
 				}
 			}
