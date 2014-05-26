@@ -112,6 +112,7 @@ public class PathFind : MonoBehaviour {
 		int width = collisionArray.GetLength(0);
 		int height = collisionArray.GetLength(1);
 		//returnPath.Add(A);
+		print ("[PathFind] new path!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		
 		//add start node
 		Node startN = new Node(0,99999999,99999999,null,A.x,A.y);
@@ -126,9 +127,9 @@ public class PathFind : MonoBehaviour {
 			open.Sort(new SortIntDescending());
 			for(i = open.Count-1; i > -1; i--){
 				Node currentN = open[i];
-				print ("[PathFind] open count"+open.Count);
+				//print ("[PathFind] open count"+open.Count);
 				VecInt[] newOpenList = SurroundingArea(open[i],width,height,collisionArray);
-				print ("[PathFind] new open count"+newOpenList.Length);
+				//print ("[PathFind] new open count"+newOpenList.Length);
 				for(j = 0; j <newOpenList.Length;j++){
 					//print (open.Count+" - "+i);
 					float newG = open[i].G+1;
@@ -136,7 +137,7 @@ public class PathFind : MonoBehaviour {
 					Node newN = new Node(newG,newH,newG+newH,currentN,newOpenList[j].x,newOpenList[j].y);
 					//end found
 					if(newN.x==B.x&&newN.y==B.y){
-						print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!");
+						print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!\n");
 						endFound = true;
 						closed.Add(currentN);
 						open.Remove(currentN);
@@ -155,16 +156,16 @@ public class PathFind : MonoBehaviour {
 				break;
 			}
 			if(open.Count==0){
-				print ("[PathFind] zero open!!!!!!!!!!!!!!!!!!!!");
+				print ("[PathFind] zero open!!!!!!!!!!!!!!!!!!!!\n");
 				pathOpen = false;
 			}
 		}
-		print ("[PathFind] whileLooped: "+whileLooped);
-		print ("[PathFind] Start: "+A.print);
-		print ("[PathFind] Start: "+A.print);
-		print ("[PathFind] Start Surounding: "+SurroundingArea(A,width,height,collisionArray).Length);
-		print ("[PathFind] Destination: "+B.print);
-		print ("[PathFind] Dist: "+EstimateDistance(A,B));
+		print ("[PathFind] whileLooped: "+whileLooped+"\n");
+		print ("[PathFind] Start: "+A.print+"\n");
+		print ("[PathFind] Start: "+A.print+"\n");
+		print ("[PathFind] Start Surounding: "+SurroundingArea(A,width,height,collisionArray).Length+"\n");
+		print ("[PathFind] Destination: "+B.print+"\n");
+		print ("[PathFind] Dist: "+EstimateDistance(A,B)+"\n");
 		//returnPath.Add(B);
 		List<Node> tempReturnPath = new List<Node>();
 		tempReturnPath.Add(closed[closed.Count-1]);

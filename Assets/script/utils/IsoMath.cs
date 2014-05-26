@@ -57,8 +57,8 @@ public class IsoMath : MonoBehaviour {
 	public static VecInt[] Area(VecInt a,float width,float height,Rect? rect){
 		List<VecInt> tempList = new List<VecInt> ();
 		List<VecInt> tempList2 = new List<VecInt> ();
-		int wSteps = (int)((width * 100) / LevelData.width);
-		int hSteps = (int)((height * 100) / LevelData.height);
+		int wSteps = (int)(width / tileW);
+		int hSteps = (int)(height / tileH);
 		print ("A (" + a.x + "," + a.y + ") width: "+wSteps+" height: "+hSteps);
 		int up = 1;
 		int right = 1;

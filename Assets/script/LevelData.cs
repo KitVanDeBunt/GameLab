@@ -32,6 +32,8 @@ public class LevelData : MonoBehaviour{
 	public static int[,] objectData;
 	private static bool[,] collsionData;
 	
+	private static GameObject levelHolder;
+	
 	public static bool[,] CollsionData{
 		get{
 			return collsionData;
@@ -43,6 +45,7 @@ public class LevelData : MonoBehaviour{
 	private static int w,h;
 
 	private void Start(){
+		levelHolder = new GameObject("LevelHolder");
 		staticTiles = tiles;
 		staticObjects = objects;
 		staticBuildings = buildings;
@@ -112,6 +115,7 @@ public class LevelData : MonoBehaviour{
 
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
+		building.transform.parent = levelHolder.transform;
 		return true;
 	}
 	
@@ -125,7 +129,7 @@ public class LevelData : MonoBehaviour{
 					objectID -= 1;
 					Vector2 pos = IsoMath.tileToWorld(w,h);
 					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 5f), new Quaternion ());
-					
+					tile.transform.parent = levelHolder.transform;
 					GroundVehicles[w,h] = new MapObject(tile,new VecInt(w,h));
 					collsionData[w,h] = true;
 				}
@@ -140,7 +144,7 @@ public class LevelData : MonoBehaviour{
 			for (w = 0; w < width; w++) {
 				Vector2 pos = IsoMath.tileToWorld(w,h);
 				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y, pos.x * pos.y / 40f + 10f), new Quaternion ());
-				
+				tile.transform.parent = levelHolder.transform;
 				LoadedGroundTiles[w,h] = (GameObject)tile;
 			}
 		}
