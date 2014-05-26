@@ -5,6 +5,7 @@ public class Selectable : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject selectIcon;
+
 	void OnEnable()
 	{
 		EventManager.OnSelect += Select;

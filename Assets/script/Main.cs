@@ -85,10 +85,13 @@ public class Main : MonoBehaviour {
 				}else if(Input.GetMouseButtonDown(1)){
 					if(selectedIDs.Length > 0){
 						print ("[Main] find path");
-						PathFind.FindPath (
+						VecInt[] newPath = PathFind.FindPath (
 							new VecInt(selected[0].pos.x,selected[0].pos.y)
 						, new VecInt((int)TilePos.x,(int)TilePos.y)
 						, LevelData.CollsionData);
+						if(newPath != null){
+							selected[0].gameObject.GetComponent<Unit>().FollowPath(newPath);
+						}
 					}
 				}
 			}
