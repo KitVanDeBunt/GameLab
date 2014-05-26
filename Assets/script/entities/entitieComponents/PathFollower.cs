@@ -10,9 +10,13 @@ public class PathFollower
 	private float lerp;
 	private float zpos;
 	private float loopInt = 0;
+	private VecInt oldPos;
+	
+	private CheckNewPosition rotater;
 
 	internal PathFollower(Transform _trans){
 		trans = _trans;
+		rotater = trans.gameObject.GetComponent<CheckNewPosition>();
 		zpos = trans.position.z;
 		Init ();
 	}
@@ -27,9 +31,13 @@ public class PathFollower
 		if (currentPath != null) {
 			if(pathProgress < currentPath.Length){
 				if(loopInt % 50 == 0){
-					Vector2 next = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
+					Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
+					if(pathProgress>0){
+						rotater.CheckNewPos(oldPos,currentPath[pathProgress],true);
+					}
+					trans.position = new Vector3(newPos.x,newPos.y,zpos);
+					oldPos = currentPath[pathProgress];
 					pathProgress+= 1;
-					trans.position = new Vector3(next.x,next.y,zpos);
 				}
 			}
 			loopInt += 1;
