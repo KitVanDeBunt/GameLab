@@ -6,51 +6,58 @@ public class CheckNewPosition : MonoBehaviour {
 	private void Start(){
 		frameManager = gameObject.GetComponent<AnimFramesManager>();
 	}
+	public int oldRotationStateNumber = 10;
+	public int newRotationStateNumber = 1;
 	// Update is called once per frame
-	public bool CheckNewPos (VecInt oldPos, VecInt newPos, bool turning = false) {
-		int newRotationStateNumber;
+	public bool CheckNewPos (VecInt oldPos, VecInt newPos) {
+		//////for with 8 states
+		/*
 		if(oldPos.x < newPos.x){
-			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 2;
-			}else if(oldPos.y < newPos.y){
-				newRotationStateNumber = 4;
-			}else{
-				newRotationStateNumber = 3;
-			}
-		}else if(oldPos.x > newPos.x){
 			if(oldPos.y > newPos.y){
 				newRotationStateNumber = 8;
 			}else if(oldPos.y < newPos.y){
 				newRotationStateNumber = 6;
 			}else{
-				newRotationStateNumber = 7;
+				//newRotationStateNumber = 2;
+			}
+		}else if(oldPos.x > newPos.x){
+			if(oldPos.y > newPos.y){
+				newRotationStateNumber = ;
+			}else if(oldPos.y < newPos.y){
+				newRotationStateNumber = 5;
+			}else{
+				//newRotationStateNumber = 6;
 			}
 		}else{
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 1;
+				//newRotationStateNumber = 8;
 			}else {
-				newRotationStateNumber = 5;
+				//newRotationStateNumber = 4;
 			}
 		}
+		*/
+		//////for with 4 states
+		if(oldPos.x < newPos.x)
+		{
+			newRotationStateNumber = 4;
+
+		}else if(oldPos.x > newPos.x)
+		{
+			newRotationStateNumber = 8;
+		}
+		if(oldPos.y > newPos.y)
+		{
+			newRotationStateNumber = 6;
+		}else if (oldPos.y < newPos.y)
+		{
+			newRotationStateNumber = 2;
+		}
 		frameManager.GetComponent<AnimFramesManager>().UpdateRotationAngle(newRotationStateNumber);
-		turning = true;
+		bool turning = false;
+		//if you need to turn and wait with moving, you need to enable this if statement
+		//if(newRotationStateNumber != oldRotationStateNumber){turning = true;}
+		oldRotationStateNumber = newRotationStateNumber;
 		return turning;
 	}
 }
-
-
-
-
-
-
-//motor gezaai
-//goat zila
-//zang motor
-//nazi groet
-//c n g motor genaai
-//a  c e  i l   n zang motor
-//a  c    l m n o    nazi groet
-//  c e    m n n o  r  goat zilla
-//a a c e g i l m n n o o r t z
-//control magazine
 

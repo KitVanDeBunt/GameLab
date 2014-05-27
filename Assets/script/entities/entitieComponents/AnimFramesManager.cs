@@ -16,50 +16,61 @@ public class AnimFramesManager : MonoBehaviour {
 	private SpriteRenderer sprite;
 	//public static RotationStates spriteState;
 	[SerializeField]
-	private Sprite Up, RightUp, Right, RightDown, Down, LeftDown, Left, LeftUp;
+	public Sprite Up, RightUp, Right, RightDown, Down, LeftDown, Left, LeftUp;
 
 	private int currentRotation;
 	void Start () {
-		currentRotation = 1;
+		currentRotation = 2;
 		sprite = gameObject.GetComponent<SpriteRenderer>();
-		sprite.sprite = Up;
+		sprite.sprite = RightUp;
 		//Debug.Log(rotationStates.Down);
 	}
 	public void UpdateRotationAngle(int nextRotationState)
 	{
 		StartCoroutine(SetNewState(nextRotationState));
-	
 	}
 
 	IEnumerator SetNewState(int state)
 	{
 		bool turn = false;
+		//this is for when you start, when you need to turn twice
+		/*
+		if(currentRotation < 4)
+		{
+			if(state > 5)
+			{
+				state -= 8;
+			}
+		}else if (currentRotation > 5){
+			if(state < 4){
+				state += 8;
+			}
+		}*/
 		if(state < currentRotation)
 		{
 			turn = true;
-			currentRotation += 1;
 		}else if (state > currentRotation){
-			currentRotation -= 1;
 			turn = true;
 		}else {
-			turn = false;
+			turn = true;
 		}
 
 		if(currentRotation == 0){currentRotation += 8;}
 		else if(currentRotation == 9){currentRotation -= 8;}
-
 		if(turn)
 		{
-			if(currentRotation == 1){sprite.sprite = Up;}
-			else if(currentRotation == 2){sprite.sprite = RightUp;}
-			else if(currentRotation == 3){sprite.sprite = Right;}
-			else if(currentRotation == 4){sprite.sprite = RightDown;}
-			else if(currentRotation == 5){sprite.sprite = Down;}
-			else if(currentRotation == 6){sprite.sprite = LeftDown;}
-			else if(currentRotation == 7){sprite.sprite = Left;}
-			else if(currentRotation == 8){sprite.sprite = LeftUp;}
+			print(currentRotation);
+			//if(currentRotation == 1){sprite.sprite = Up;}
+			if(state == 2){sprite.sprite = RightUp;}
+			//else if(currentRotation == 3){sprite.sprite = Right;}
+			else if(state == 4){sprite.sprite = RightDown;}
+			//else if(currentRotation == 5){sprite.sprite = Down;}
+			else if(state == 6){sprite.sprite = LeftDown;}
+			//else if(currentRotation == 7){sprite.sprite = Left;}
+			else if(state == 8){sprite.sprite = LeftUp;}
+			currentRotation = state;
 		}else{
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.2f);
 			StartCoroutine(SetNewState(state));
 		}
 	}

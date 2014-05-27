@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MapObject{
 	public GameObject gameObject;
@@ -18,7 +19,8 @@ public class LevelData : MonoBehaviour{
 	private GameObject[] objects;
 	[SerializeField]
 	private GameObject[] buildings;
-	
+
+	//PREFABS
 	private static GameObject[] staticTiles;
 	private static GameObject[] staticObjects;
 	private static GameObject[] staticBuildings;
@@ -31,6 +33,7 @@ public class LevelData : MonoBehaviour{
 	public static int[,] tileData;
 	public static int[,] objectData;
 	private static bool[,] collsionData;
+	private static List<IBuilding> buildingList;
 	
 	private static GameObject levelHolder;
 	
@@ -43,6 +46,9 @@ public class LevelData : MonoBehaviour{
 	public static int size;
 
 	private static int w,h;
+
+	private static int energyLevel;
+	public static bool ENERGY;
 
 	private void Start(){
 		levelHolder = new GameObject("LevelHolder");
@@ -64,16 +70,21 @@ public class LevelData : MonoBehaviour{
 		height = tileData.GetLength(1);
 		collsionData = new bool[size,size];
 		objectData = RandomTestData (size,size,new int[]{0,0,0,0,0,0,1});
+		buildingList = new List<IBuilding>();
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
-		BuildBuildings();
+
+		for(int j = 0; j < 16; j++) {
+			constructBuilding(5, 6 + j * 2, 0, 2);
+			constructBuilding(9, 6 + j * 2, 1, 2);
+			constructBuilding(13, 6 + j * 2, 2, 2);
+		}
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
 		int[,] data;
 		data = new int[width,height];
-		
 		for (h = 0; h<height; h++) {
 			for (w = 0; w<width; w++) {
 				data [w, h] = (int)Random.Range(0,choice.Length);
@@ -82,20 +93,27 @@ public class LevelData : MonoBehaviour{
 		}
 		return data;
 	}
-	
-	private static void BuildBuildings(){
-		for(int test1 = 0; test1 < 50; test1+=2){
-			for(int test2 = 0; test2 < 50; test2+=2){
-				int ran = (int)Random.Range(0,5);
-				if(ran == 0){
-					if(test1 % 4 == 0){
-						constructBuilding(test1, test2, 0, 2);
-					}else{
-						constructBuilding(test1, test2, 1, 2);
-					}
-				}
-			}
+
+	private static void calculateEnegy() {
+		energyLevel = 0;
+
+		int buildingLength = buildingList.Count;
+		for(int i = 0; i < buildingLength; i++) {
+			energyLevel += buildingList[i].getEnergyUsage();
 		}
+
+		if(energyLevel > -1 && !ENERGY) {
+			ENERGY = true;
+			onEnergyStateChange();
+		} else if(energyLevel < 0 && ENERGY) {
+			ENERGY = false;
+			onEnergyStateChange();
+		}
+	}
+
+	private static void onEnergyStateChange() {
+		//turn off all energy consuming buildings
+		//if buildingList[i].getEnergyUsage(); returns lower than 0 turn off building
 	}
 
 	private static bool constructBuilding(int x, int y, int id, int size) {
@@ -116,6 +134,8 @@ public class LevelData : MonoBehaviour{
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		building.transform.parent = levelHolder.transform;
+		buildingList.Add((IBuilding)building.GetComponent(typeof(IBuilding)));
+		calculateEnegy();
 		return true;
 	}
 	
