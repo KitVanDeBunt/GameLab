@@ -75,25 +75,21 @@ public class LevelData : MonoBehaviour{
 		BuildTiles (tileData);
 		BuildObjects(objectData);
 
-		constructBuilding(5, 10, 0, 2);
-		constructBuilding(5, 12, 0, 2);
-		constructBuilding(5, 14, 0, 2);
-
-		constructBuilding(9, 10, 1, 2);
-		constructBuilding(9, 12, 1, 2);
-		constructBuilding(9, 14, 1, 2);
+		for(int j = 0; j < 16; j++) {
+			constructBuilding(5, 6 + j * 2, 0, 2);
+			constructBuilding(9, 6 + j * 2, 1, 2);
+		}
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
 		int[,] data;
 		data = new int[width,height];
-		/*
 		for (h = 0; h<height; h++) {
 			for (w = 0; w<width; w++) {
 				data [w, h] = (int)Random.Range(0,choice.Length);
 				data [w, h] = choice[data [w, h]];
 			}
-		}*/
+		}
 		return data;
 	}
 
@@ -109,7 +105,7 @@ public class LevelData : MonoBehaviour{
 			ENERGY = true;
 		}
 
-		Debug.Log("ENERGY:" + ENERGY + " LEVEL:" + energyLevel); 
+		//Debug.Log("ENERGY:" + ENERGY + " LEVEL:" + energyLevel); 
 	}
 
 	private static bool constructBuilding(int x, int y, int id, int size) {
