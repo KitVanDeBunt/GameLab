@@ -26,15 +26,13 @@ public class IsoMath : MonoBehaviour {
 
 	
 	public static Vector2 getMouseWorldPosition(){
-		Vector2 returnValue;
 		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Vector3 mousePosition = new Vector3(mouseRay.origin.x,mouseRay.origin.y,0);
+		//Vector3 mousePosition = new Vector3(mouseRay.origin.x,mouseRay.origin.y,0);
 		Vector2 mousePos2D = new Vector2(mouseRay.origin.x,mouseRay.origin.y);
 		return mousePos2D;
 	}
 
 	public static Vector3 getMouseWorldPosition3D(){
-		Vector2 returnValue;
 		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Vector3 mousePosition = new Vector3(mouseRay.origin.x,mouseRay.origin.y,10);
 		return mousePosition;

@@ -11,7 +11,7 @@ public class VecInt
 	public string print{
 		get{
 			string ret = "("+x+","+y+")";
-			return "("+x+","+y+")";
+			return ret;
 		}
 	}
 	

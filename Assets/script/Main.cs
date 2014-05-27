@@ -7,6 +7,10 @@ public class Main : MonoBehaviour {
 	private Camera cam;
 	[SerializeField]
 	private GameObject multiSelectArea;
+	[SerializeField]
+	private GuiManager gui;
+	[SerializeField]
+	private Camera guiCamera;
 	
 	private bool mouseDown = false;
 	private Vector2 oldPos;
@@ -17,12 +21,16 @@ public class Main : MonoBehaviour {
 	private Vector3 startMousePos;
 	private VecInt startTilePos;
 
+
 	private void Start(){
+		//gui = new GuiManager ();
 		GameInput.init(this);
 		multiSelectArea.SetActive(false);
+		gui.init (guiCamera);
 	}
 
 	private void Update(){
+		gui.tick ();
 		GameInput.updateInput();
 		PathFind.Update();
 	}
