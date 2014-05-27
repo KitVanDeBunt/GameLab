@@ -10,6 +10,7 @@ public class PathFollower
 	private float lerp;
 	private float loopInt = 0;
 	private VecInt oldPos;
+	private bool turnUnit;
 	
 	private CheckNewPosition rotater;
 
@@ -31,10 +32,13 @@ public class PathFollower
 				if(loopInt % 50 == 0){
 					Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
 					if(pathProgress>0){
-						rotater.CheckNewPos(oldPos,currentPath[pathProgress],true);
+						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
 					}
 					//trans.position = new Vector3(newPos.x,newPos.y,zpos);
-					trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+					if(!turnUnit)
+					{
+						trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+					}
 					oldPos = currentPath[pathProgress];
 					pathProgress+= 1;
 				}
