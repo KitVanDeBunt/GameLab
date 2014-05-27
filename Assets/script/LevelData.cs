@@ -111,7 +111,7 @@ public class LevelData : MonoBehaviour{
 	}
 
 	private static void onEnergyStateChange() {
-		//turn off all energy using buildings
+		//turn off all energy consuming buildings
 		//if buildingList[i].getEnergyUsage(); returns lower than 0 turn off building
 	}
 
