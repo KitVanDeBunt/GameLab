@@ -101,11 +101,18 @@ public class LevelData : MonoBehaviour{
 			energyLevel += buildingList[i].getEnergyUsage();
 		}
 
-		if(energyLevel > -1) {
+		if(energyLevel > -1 && !ENERGY) {
 			ENERGY = true;
+			onEnergyStateChange();
+		} else if(energyLevel < 0 && ENERGY) {
+			ENERGY = false;
+			onEnergyStateChange();
 		}
+	}
 
-		//Debug.Log("ENERGY:" + ENERGY + " LEVEL:" + energyLevel); 
+	private static void onEnergyStateChange() {
+		//turn off all energy using buildings
+		//if buildingList[i].getEnergyUsage(); returns lower than 0 turn off building
 	}
 
 	private static bool constructBuilding(int x, int y, int id, int size) {

@@ -2,11 +2,14 @@
 using System.Collections;
 
 public class BuildingPower : MonoBehaviour, IBuilding {
-	private int maxHealth = 100;
-	private int health = 100;
+	[SerializeField]
+	private int energy;
+	[SerializeField]
+	private int maxHealth;
+	private int health;
 
 	void Start () {
-		
+		health = maxHealth;
 	}
 	
 	void Update () {
@@ -18,7 +21,7 @@ public class BuildingPower : MonoBehaviour, IBuilding {
 	}
 	
 	public int getEnergyUsage() {
-		return 50;
+		return energy;
 	}
 
 	public bool damage(int amount) {

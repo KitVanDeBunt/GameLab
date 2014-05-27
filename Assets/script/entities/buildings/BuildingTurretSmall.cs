@@ -2,11 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
-	private int maxHealth = 120;
-	private int health = 120;
+	[SerializeField]
+	private int energy;
+	[SerializeField]
+	private int maxHealth;
+	private int health;
 	
 	void Start () {
-		
+		health = maxHealth;
 	}
 	
 	void Update () {
@@ -20,7 +23,7 @@ public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 	}
 	
 	public int getEnergyUsage() {
-		return 5;
+		return energy;
 	}
 
 	public bool damage(int amount) {
