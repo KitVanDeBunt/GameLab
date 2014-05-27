@@ -34,6 +34,17 @@ public class AnimFramesManager : MonoBehaviour {
 	IEnumerator SetNewState(int state)
 	{
 		bool turn = false;
+		if(currentRotation < 4)
+		{
+			if(state > 5)
+			{
+				state -= 8;
+			}
+		}else if (currentRotation > 5){
+			if(state < 4){
+				state += 8;
+			}
+		}
 		if(state < currentRotation)
 		{
 			turn = true;

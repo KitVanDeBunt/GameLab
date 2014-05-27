@@ -11,27 +11,28 @@ public class CheckNewPosition : MonoBehaviour {
 		int newRotationStateNumber;
 		if(oldPos.x < newPos.x){
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 2;
+				newRotationStateNumber = 1;
 			}else if(oldPos.y < newPos.y){
-				newRotationStateNumber = 4;
-			}else{
 				newRotationStateNumber = 3;
+			}else{
+				newRotationStateNumber = 2;
 			}
 		}else if(oldPos.x > newPos.x){
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 8;
-			}else if(oldPos.y < newPos.y){
-				newRotationStateNumber = 6;
-			}else{
 				newRotationStateNumber = 7;
+			}else if(oldPos.y < newPos.y){
+				newRotationStateNumber = 5;
+			}else{
+				newRotationStateNumber = 6;
 			}
 		}else{
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 1;
+				newRotationStateNumber = 8;
 			}else {
-				newRotationStateNumber = 5;
+				newRotationStateNumber = 4;
 			}
 		}
+		print (oldPos.print + newPos.print);
 		frameManager.GetComponent<AnimFramesManager>().UpdateRotationAngle(newRotationStateNumber);
 		turning = true;
 		return turning;
