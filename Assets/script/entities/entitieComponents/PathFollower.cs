@@ -8,7 +8,6 @@ public class PathFollower
 	private int pathProgress;
 	private Transform trans;
 	private float lerp;
-	private float zpos;
 	private float loopInt = 0;
 	private VecInt oldPos;
 	
@@ -17,7 +16,6 @@ public class PathFollower
 	internal PathFollower(Transform _trans){
 		trans = _trans;
 		rotater = trans.gameObject.GetComponent<CheckNewPosition>();
-		zpos = trans.position.z;
 		Init ();
 	}
 
@@ -35,7 +33,8 @@ public class PathFollower
 					if(pathProgress>0){
 						rotater.CheckNewPos(oldPos,currentPath[pathProgress],true);
 					}
-					trans.position = new Vector3(newPos.x,newPos.y,zpos);
+					//trans.position = new Vector3(newPos.x,newPos.y,zpos);
+					trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
 					oldPos = currentPath[pathProgress];
 					pathProgress+= 1;
 				}

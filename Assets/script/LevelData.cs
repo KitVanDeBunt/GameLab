@@ -44,6 +44,9 @@ public class LevelData : MonoBehaviour{
 
 	private static int w,h;
 
+	private static int energyLevel;
+	public static bool ENERGY;
+
 	private void Start(){
 		levelHolder = new GameObject("LevelHolder");
 		staticTiles = tiles;
@@ -67,7 +70,6 @@ public class LevelData : MonoBehaviour{
 
 		BuildTiles (tileData);
 		BuildObjects(objectData);
-		BuildBuildings();
 	}
 
 	private static int[,] RandomTestData(int width,int height, int[] choice){
@@ -82,20 +84,10 @@ public class LevelData : MonoBehaviour{
 		}
 		return data;
 	}
-	
-	private static void BuildBuildings(){
-		for(int test1 = 0; test1 < 50; test1+=2){
-			for(int test2 = 0; test2 < 50; test2+=2){
-				int ran = (int)Random.Range(0,5);
-				if(ran == 0){
-					if(test1 % 4 == 0){
-						constructBuilding(test1, test2, 0, 2);
-					}else{
-						constructBuilding(test1, test2, 1, 2);
-					}
-				}
-			}
-		}
+
+	private static void calculateEnegy() {
+		energyLevel = 0;
+		ENERGY = true;
 	}
 
 	private static bool constructBuilding(int x, int y, int id, int size) {
@@ -116,6 +108,7 @@ public class LevelData : MonoBehaviour{
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		building.transform.parent = levelHolder.transform;
+		calculateEnegy();
 		return true;
 	}
 	
