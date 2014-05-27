@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildingTest : MonoBehaviour, IBuilding {
+public class BuildingBase : MonoBehaviour, IBuilding {
 	private int maxHealth = 200;
 	private int health = 200;
 
