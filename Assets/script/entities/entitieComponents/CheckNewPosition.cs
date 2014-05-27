@@ -54,7 +54,8 @@ public class CheckNewPosition : MonoBehaviour {
 		}
 		frameManager.GetComponent<AnimFramesManager>().UpdateRotationAngle(newRotationStateNumber);
 		bool turning = false;
-		if(newRotationStateNumber != oldRotationStateNumber){turning = true;}
+		//if you need to turn and wait with moving, you need to enable this if statement
+		//if(newRotationStateNumber != oldRotationStateNumber){turning = true;}
 		oldRotationStateNumber = newRotationStateNumber;
 		return turning;
 	}
