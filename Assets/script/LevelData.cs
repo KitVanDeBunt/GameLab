@@ -78,6 +78,7 @@ public class LevelData : MonoBehaviour{
 		for(int j = 0; j < 16; j++) {
 			constructBuilding(5, 6 + j * 2, 0, 2);
 			constructBuilding(9, 6 + j * 2, 1, 2);
+			constructBuilding(13, 6 + j * 2, 2, 2);
 		}
 	}
 
