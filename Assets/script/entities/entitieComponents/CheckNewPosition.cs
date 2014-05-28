@@ -11,31 +11,31 @@ public class CheckNewPosition : MonoBehaviour {
 	// Update is called once per frame
 	public bool CheckNewPos (VecInt oldPos, VecInt newPos) {
 		//////for with 8 states
-		/*
+
 		if(oldPos.x < newPos.x){
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = 8;
+				newRotationStateNumber = 5;
 			}else if(oldPos.y < newPos.y){
-				newRotationStateNumber = 6;
+				newRotationStateNumber = 3;
 			}else{
-				//newRotationStateNumber = 2;
+				newRotationStateNumber = 4;
 			}
 		}else if(oldPos.x > newPos.x){
 			if(oldPos.y > newPos.y){
-				newRotationStateNumber = ;
+				newRotationStateNumber = 7;
 			}else if(oldPos.y < newPos.y){
-				newRotationStateNumber = 5;
+				newRotationStateNumber = 1;
 			}else{
-				//newRotationStateNumber = 6;
+				newRotationStateNumber = 8;
 			}
 		}else{
 			if(oldPos.y > newPos.y){
-				//newRotationStateNumber = 8;
+				newRotationStateNumber = 6;
 			}else {
-				//newRotationStateNumber = 4;
+				newRotationStateNumber = 2;
 			}
 		}
-		*/
+		/*
 		//////for with 4 states
 		if(oldPos.x < newPos.x)
 		{
@@ -51,7 +51,7 @@ public class CheckNewPosition : MonoBehaviour {
 		}else if (oldPos.y < newPos.y)
 		{
 			newRotationStateNumber = 2;
-		}
+		}*/
 		frameManager.GetComponent<AnimFramesManager>().UpdateRotationAngle(newRotationStateNumber);
 		bool turning = false;
 		//if you need to turn and wait with moving, you need to enable this if statement
