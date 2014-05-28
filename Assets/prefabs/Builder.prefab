@@ -48,7 +48,7 @@ MonoBehaviour:
   buildings:
   - {fileID: 100000, guid: a67a4c228ff114c4e9c3de7e94a7fb56, type: 2}
   - {fileID: 100000, guid: 9b90e3f3210d64840941b5c8147f025a, type: 2}
-  - {fileID: 100000, guid: 9b90e3f3210d64840941b5c8147f025a, type: 2}
+  - {fileID: 100000, guid: e8f65675993e76f4ea9c4bff5aedb10d, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
