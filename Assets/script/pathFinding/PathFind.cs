@@ -18,6 +18,15 @@ public class Node :VecInt
 	}
 }
 
+public class NewNode :VecInt
+{
+	public float K; // estimated Cost til end
+	public NewNode(float k, int _x,int _y) :base(_x,_y)
+	{
+		K = k;
+	}
+}
+
 public class PathFind : MonoBehaviour {
 	private static int i;
 	private static int j;
@@ -40,44 +49,81 @@ public class PathFind : MonoBehaviour {
 		}
 	}
 	
-	private static int EstimateDistance(VecInt a,VecInt b){
-		int deltaX = Mathf.Abs(a.x - b.x);	
-		int deltaY = Mathf.Abs(a.y - b.y);	
-		return (deltaX + deltaY);
+	private static float EstimateDistance(VecInt a,VecInt b){
+		float deltaX = Mathf.Abs(a.x - b.x);	
+		float deltaY = Mathf.Abs(a.y - b.y);	
+		float deltaXY = Mathf.Abs (deltaX - deltaY);
+		deltaX -= deltaXY;
+		deltaY -= deltaXY;
+		if(deltaXY!=0){
+			deltaXY = Mathf.Sqrt((deltaXY*deltaXY)+(deltaXY*deltaXY));
+		}
+		return (deltaX + deltaY + deltaXY);
 	}
 	
-	private static VecInt[] SurroundingArea(VecInt a,int width,int height,bool[,] colisionArray){
+	private static NewNode[] SurroundingArea(VecInt a,int width,int height,bool[,] colisionArray){
 		int i;
 		int j;
-		List<VecInt> suroundingArea = new List<VecInt>();
+		List<NewNode> suroundingArea = new List<NewNode>();
+
+
+		//add if on map
+		if((a.x < width-1)&&(a.y < height-1)){
+			if(!(colisionArray[a.x+1,a.y])&&
+			   !(colisionArray[a.x,a.y+1])){ 
+				suroundingArea.Add(new NewNode(1.4142f,a.x+1,a.y+1));//right down
+			}
+		}
+		if((a.y < height-1)&&(a.x > 0)){
+			if(!(colisionArray[a.x-1,a.y])&&
+			   !(colisionArray[a.x,a.y+1])){ 
+				suroundingArea.Add(new NewNode(1.4142f,a.x-1,a.y+1));//down left
+			}
+		}
+		if((a.x > 0)&&(a.y > 0)){
+			if(!(colisionArray[a.x-1,a.y])&&
+			   !(colisionArray[a.x,a.y-1])){ 
+				suroundingArea.Add(new NewNode(1.4142f,a.x-1,a.y-1));//left up
+			}
+		}
+		if((a.y > 0)&&(a.x < width-1)){
+			if(!(colisionArray[a.x+1,a.y])&&
+			   !(colisionArray[a.x,a.y-1])){ 
+				suroundingArea.Add(new NewNode(1.4142f,a.x+1,a.y-1));//up right
+			}
+		}
+
 		//add if on map
 		if(a.x < width-1){
-			suroundingArea.Add(new VecInt(a.x+1,a.y));
+			suroundingArea.Add(new NewNode(1,a.x+1,a.y));//right
 		}
 		if(a.y < height-1){
-			suroundingArea.Add(new VecInt(a.x,a.y+1));
+			suroundingArea.Add(new NewNode(1,a.x,a.y+1));//down
 		}
 		if(a.x > 0){
-			suroundingArea.Add(new VecInt(a.x-1,a.y));
+			suroundingArea.Add(new NewNode(1,a.x-1,a.y));//left
 		}
 		if(a.y > 0){
-			suroundingArea.Add(new VecInt(a.x,a.y-1));
+			suroundingArea.Add(new NewNode(1,a.x,a.y-1));//up
 		}
+
 		//remove if in collision
 		for(i = suroundingArea.Count-1; i > -1; i--){
-			if(colisionArray[suroundingArea[i].x,suroundingArea[i].y] == true){ 
+			if(colisionArray[suroundingArea[i].x,suroundingArea[i].y]){ 
 				suroundingArea.RemoveAt(i);
 			}
 		}
-		//remove if already in open or closed
-		for(i = suroundingArea.Count-1; i > -1; i--){
+
+		//remove if already in open
+		/*for(i = suroundingArea.Count-1; i > -1; i--){
 			for(j = 0; j < open.Count; j++){
 				if((suroundingArea[i].x == open[j].x )&&(suroundingArea[i].y == open[j].y )){ 
 					suroundingArea.RemoveAt(i);
 					break;
 				}
 			}
-		}
+		}*/
+		//remove if already in closed
 		for(i = suroundingArea.Count-1; i > -1; i--){
 			for(j = 0; j < closed.Count; j++){
 				if((suroundingArea[i].x == closed[j].x )&&(suroundingArea[i].y == closed[j].y )){ 
@@ -89,7 +135,7 @@ public class PathFind : MonoBehaviour {
 		return suroundingArea.ToArray();
 	}
 	
-	private class SortIntDescending : IComparer<Node>
+	private class SortFDescending : IComparer<Node>
 	{
 		int IComparer<Node>.Compare(Node a, Node b) //implement Compare
 		{              
@@ -124,34 +170,60 @@ public class PathFind : MonoBehaviour {
 		while (pathOpen) {
 			whileLooped++;
 			//sort
-			open.Sort(new SortIntDescending());
-			for(i = open.Count-1; i > -1; i--){
-				Node currentN = open[i];
-				//print ("[PathFind] open count"+open.Count);
-				VecInt[] newOpenList = SurroundingArea(open[i],width,height,collisionArray);
-				//print ("[PathFind] new open count"+newOpenList.Length);
-				for(j = 0; j <newOpenList.Length;j++){
+			open.Sort(new SortFDescending());
+			//for(i = open.Count-1; i > -1; i--){
+			
+			
+			Node currentCheckNode = open[open.Count-1];
+			//print ("[PathFind] open count"+open.Count);
+			NewNode[] newOpenList = SurroundingArea(currentCheckNode,width,height,collisionArray);
+			//print ("[PathFind] new open count"+newOpenList.Length);
+			for(j = 0; j <newOpenList.Length;j++){
+				//draw
+				Debug.DrawLine(IsoMath.tileToWorld(currentCheckNode.x,currentCheckNode.y)
+				               ,IsoMath.tileToWorld(newOpenList[j].x,newOpenList[j].y),Color.magenta,3.0f);
+				               
+				bool inOPenList = false;
+				float newG = currentCheckNode.G+newOpenList[j].K;
+				float newH = EstimateDistance(newOpenList[j],B); 
+				float newF = newG+newH;
+				//check if new open node is already in open list
+				for(i = 0; i < open.Count; i++){
+					if((newOpenList[j].x == open[i].x )&&(newOpenList[j].y == open[i].y )){
+						inOPenList =true;
+						if(currentCheckNode.parentNode.F > open[i].parentNode.F ){
+							open[i].G = newG;
+							open[i].H = newH;
+							open[i].F = newF;
+							open[i].parentNode = currentCheckNode;
+						}
+						break;
+					}
+				}
+				if(!inOPenList){
 					//print (open.Count+" - "+i);
-					float newG = open[i].G+1;
-					float newH = EstimateDistance(newOpenList[j],B); 
-					Node newN = new Node(newG,newH,newG+newH,currentN,newOpenList[j].x,newOpenList[j].y);
+					Node newN = new Node(newG,newH,newF,currentCheckNode,newOpenList[j].x,newOpenList[j].y);
 					//end found
 					if(newN.x==B.x&&newN.y==B.y){
 						print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!\n");
 						endFound = true;
-						closed.Add(currentN);
-						open.Remove(currentN);
+						closed.Add(currentCheckNode);
+						open.Remove(currentCheckNode);
 						closed.Add(newN);
 						break;
 					}
 					open.Add(newN);
 				}
-				if(endFound){
-					break;
-				}
-				closed.Add(currentN);
-				open.Remove(currentN);
+				
 			}
+			if(endFound){
+				break;
+			}
+			closed.Add(currentCheckNode);
+			open.Remove(currentCheckNode);
+			
+			
+			//}
 			if(endFound){
 				break;
 			}

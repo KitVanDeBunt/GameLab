@@ -209,6 +209,18 @@ MonoBehaviour:
         y: 1
         drawHitBox: 0
         sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
+      - width: 0
+        height: 0
+        x: 3
+        y: 1
+        drawHitBox: 0
+        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
+      - width: 0
+        height: 0
+        x: 1
+        y: 3
+        drawHitBox: 0
+        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
     - id: 0
       name: 
       buttons:

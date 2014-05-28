@@ -23,7 +23,7 @@ public class GuiManager
 
 		float screenHeight = 2f * _cam.orthographicSize;
 		float screenWidth = screenHeight * _cam.aspect;
-		Vector3 TopRight = new Vector3( screenWidth/2, screenHeight/2,10)+_cam.transform.position;
+		//Vector3 TopRight = new Vector3( screenWidth/2, screenHeight/2,10)+_cam.transform.position;
 		Vector3 BottomLeft = new Vector3( -screenWidth/2, -screenHeight/2,10)+_cam.transform.position;
 
 		for (int i = 0; i < guiData[currentActive].buttons.Length; i++) {
