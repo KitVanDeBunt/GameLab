@@ -29,6 +29,12 @@ public class PathFollower
 		//trans.Translate(0.05f,0.05f,0);
 		if (currentPath != null) {
 			if(pathProgress < currentPath.Length){
+				
+				if(loopInt % 25 == 0){
+					if(pathProgress>0){
+						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
+					}
+				}
 				if(loopInt % 50 == 0){
 					Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
 					if(pathProgress>0){

@@ -59,14 +59,13 @@ public class AnimFramesManager : MonoBehaviour {
 		else if(currentRotation == 9){currentRotation -= 8;}
 		if(turn)
 		{
-			print(currentRotation);
-			//if(currentRotation == 1){sprite.sprite = Up;}
-			if(state == 2){sprite.sprite = RightUp;}
-			//else if(currentRotation == 3){sprite.sprite = Right;}
+			if(state == 1){sprite.sprite = Up;}
+			else if(state == 2){sprite.sprite = RightUp;}
+			else if(state == 3){sprite.sprite = Right;}
 			else if(state == 4){sprite.sprite = RightDown;}
-			//else if(currentRotation == 5){sprite.sprite = Down;}
+			else if(state == 5){sprite.sprite = Down;}
 			else if(state == 6){sprite.sprite = LeftDown;}
-			//else if(currentRotation == 7){sprite.sprite = Left;}
+			else if(state == 7){sprite.sprite = Left;}
 			else if(state == 8){sprite.sprite = LeftUp;}
 			currentRotation = state;
 		}else{
