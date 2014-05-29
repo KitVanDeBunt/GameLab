@@ -37,10 +37,15 @@ public class GuiManager
 
 			buttonGameObjects.Add(button);
 		}
+
+		for (int i = 0; i < buttonGameObjects.Count; i++) {
+			//Debug.Log("[GUI]::::::::"+buttonGameObjects[i].GetComponent<SpriteRenderer>().sprite.bounds);
+		}
 	}
 
 	public void tick(){
-
+		Vector2 mousePos = IsoMath.getMouseWorldPosition ();
+		//Debug.Log (mousePos);
 	}
 }
 

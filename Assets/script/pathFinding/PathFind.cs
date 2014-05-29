@@ -53,6 +53,13 @@ public class PathFind : MonoBehaviour {
 		float deltaX = Mathf.Abs(a.x - b.x);	
 		float deltaY = Mathf.Abs(a.y - b.y);	
 		float deltaXY = Mathf.Abs (deltaX - deltaY);
+		if(deltaX>deltaY){
+			deltaXY = deltaY;
+		}else if(deltaX<deltaY){
+			deltaXY = deltaX;
+		}else{
+			deltaXY = deltaX;
+		}
 		deltaX -= deltaXY;
 		deltaY -= deltaXY;
 		if(deltaXY!=0){
@@ -135,16 +142,16 @@ public class PathFind : MonoBehaviour {
 		return suroundingArea.ToArray();
 	}
 	
-	private class SortFDescending : IComparer<Node>
+	private class SortF : IComparer<Node>
 	{
-		int IComparer<Node>.Compare(Node a, Node b) //implement Compare
+		int IComparer<Node>.Compare(Node a, Node b) 
 		{              
 			if (a.F > b.F)
-				return -1; //normally greater than = 1
+				return 1; 
 			if (a.F < b.F)
-				return 1; // normally smaller than = -1
+				return -1; 
 			else
-				return 0; // equal
+				return 0;
 		}
 	}
 	
@@ -168,13 +175,14 @@ public class PathFind : MonoBehaviour {
 		bool endFound = false;
 		int whileLooped = 0;
 		while (pathOpen) {
+			
 			whileLooped++;
 			//sort
-			open.Sort(new SortFDescending());
+			open.Sort(new SortF());
 			//for(i = open.Count-1; i > -1; i--){
 			
 			
-			Node currentCheckNode = open[open.Count-1];
+			Node currentCheckNode = open[0];
 			//print ("[PathFind] open count"+open.Count);
 			NewNode[] newOpenList = SurroundingArea(currentCheckNode,width,height,collisionArray);
 			//print ("[PathFind] new open count"+newOpenList.Length);
@@ -262,6 +270,4 @@ public class PathFind : MonoBehaviour {
 			return null;
 		}
 	}
-	
-
 }
