@@ -2,15 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MapObject{
-	public GameObject gameObject;
-	public VecInt pos;
-	public MapObject(GameObject _gameObject,VecInt _pos){
-		gameObject = _gameObject;
-		pos = _pos;
-	}
-}
-
 public class LevelData : MonoBehaviour{
 
 	[SerializeField]
@@ -140,7 +131,7 @@ public class LevelData : MonoBehaviour{
 	}
 	
 	private static void BuildObjects (int[,] data) {
-		Debug.Log ("width: "+width+" height: "+height);
+		//Debug.Log ("width: "+width+" height: "+height);
 		GroundVehicles = new MapObject[width,height];
 		for (h = 0; h < height; h++) {
 			for (w = 0; w < width; w++) {
@@ -158,7 +149,6 @@ public class LevelData : MonoBehaviour{
 	}
 
 	private static void BuildTiles (int[,] data) {
-		Debug.Log ("width: "+width+" height: "+height);
 		LoadedGroundTiles = new GameObject[width,height];
 		for (h = 0; h < height; h++) {
 			for (w = 0; w < width; w++) {

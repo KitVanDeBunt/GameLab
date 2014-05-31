@@ -1,39 +1,60 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
 public class GuiManager
 {
-	[SerializeField]
-	private int currentActive = 0;
+	[HideInInspector]
+	public int currentActive = 0;
 
 	[SerializeField]
-	private GuiData[] guiData;
-
+	public GuiData[] guiData;
+	
+	[HideInInspector]
+	[SerializeField]
 	private List<GameObject> buttonGameObjects;
-	public void init(Camera _cam){
-		BuildGui(_cam);
+	
+	[SerializeField]
+	private int guiint;
+	[SerializeField]
+	private Camera guiCam;
+	
+	float screenHeight;
+	float screenWidth;
+	Vector3 TopRight;
+	Vector3 BottomLeft;
+	
+	
+	
+	public void init(){
+		screenHeight = 2f * guiCam.orthographicSize;
+		screenWidth = screenHeight * guiCam.aspect;
+		BuildGui();
 	}
 
-	public void BuildGui(Camera _cam){
+	public void BuildGui(){
+		guiint++;
+		ClearGui();
+		
 		buttonGameObjects = new List<GameObject>();
 		//Debug.Log ("[GUI] "+guiData.Length);
 		//Debug.Log ("[GUI]buttons: "+guiData[currentActive].buttons.Length);
 
-		float screenHeight = 2f * _cam.orthographicSize;
-		float screenWidth = screenHeight * _cam.aspect;
-		//Vector3 TopRight = new Vector3( screenWidth/2, screenHeight/2,10)+_cam.transform.position;
-		Vector3 BottomLeft = new Vector3( -screenWidth/2, -screenHeight/2,10)+_cam.transform.position;
+		
+		TopRight = new Vector3( screenWidth/2, screenHeight/2,10)+guiCam.transform.position;
+		BottomLeft = new Vector3( -screenWidth/2, -screenHeight/2,10)+guiCam.transform.position;
 
 		for (int i = 0; i < guiData[currentActive].buttons.Length; i++) {
-			string name = "button "+i.ToString();
+			string name = "guibutton "+i.ToString()+" "+guiint;
 			GameObject button = new GameObject(name);
 			button.layer = LayerMask.NameToLayer("Gui");
-			button.transform.parent = _cam.transform;
-			button.transform.position = BottomLeft;
-			button.transform.Translate(guiData[currentActive].buttons[i].x,guiData[currentActive].buttons[i].y,0);
+			button.transform.parent = guiCam.transform;
+			button.transform.position = new Vector3(guiData[currentActive].buttons[i].x/100.0f+BottomLeft.x
+			                                        ,guiData[currentActive].buttons[i].y/100.0f+BottomLeft.y,0);
 			button.AddComponent<SpriteRenderer>().sprite = guiData[currentActive].buttons[i].sprite;
+			button.tag = "Button";
 
 			buttonGameObjects.Add(button);
 		}
@@ -42,10 +63,53 @@ public class GuiManager
 			//Debug.Log("[GUI]::::::::"+buttonGameObjects[i].GetComponent<SpriteRenderer>().sprite.bounds);
 		}
 	}
+	
+	private void ClearGui(){
+		GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+		//for(int i = 0; i < buttonGameObjects.Count;i++){
+		//	GameObject.DestroyImmediate(buttonGameObjects[i]);
+		//	//Debug.Log("Destroy: "+i);
+		//}
+		for(int i = 0; i < buttons.Length;i++){
+			GameObject.DestroyImmediate(buttons[i]);
+			//Debug.Log("Destroy: "+i);
+		}
+	}
+	
+	public bool checkGuiInput(){
+		bool overGui = false;
+		Vector2 mousePos = IsoMath.getMouseWorldPosition();
+		//Debug.Log (mousePos);
+		for(int i = 0; i < buttonGameObjects.Count;i++){
+			if(guiData[currentActive].buttons[i].isButton){
+				Bounds buttonBuonds = buttonGameObjects[i].renderer.bounds;
+				//Debug.Log("buttonBuonds: "+buttonBuonds);
+				//Debug.Log("message: "+guiData[currentActive].buttons[i].sprite.textureRect);
+				if((buttonBuonds.center.x+buttonBuonds.extents.x)>mousePos.x&&
+				   (buttonBuonds.center.x-buttonBuonds.extents.x)<mousePos.x&&
+				   (buttonBuonds.center.y+buttonBuonds.extents.y)>mousePos.y&&
+				   (buttonBuonds.center.y-buttonBuonds.extents.y)<mousePos.y){
+					overGui = true;
+					if(Input.GetMouseButtonDown(0)){
+						EventManager.callOnGuiInput(guiData[currentActive].buttons[i].message);
+					}
+				}else{
+					
+				}
+			}
+		}
+		return overGui;
+	}
 
 	public void tick(){
-		Vector2 mousePos = IsoMath.getMouseWorldPosition ();
-		//Debug.Log (mousePos);
+		Vector3 TopRight = new Vector3( screenWidth/2, screenHeight/2,10)+guiCam.transform.position;
+		Vector3 BottomLeft = new Vector3( -screenWidth/2, -screenHeight/2,10)+guiCam.transform.position;
+		
+		//Debug.Log("[GUI] tick "+buttonGameObjects.Count);
+		for (int i = 0; i < buttonGameObjects.Count; i++) {
+			buttonGameObjects[i].transform.position = new Vector3( guiData[currentActive].buttons[i].x/100.0f+BottomLeft.x
+			                                                      ,guiData[currentActive].buttons[i].y/100.0f+BottomLeft.y,0);
+		}
 	}
 }
 

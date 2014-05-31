@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameInput : MonoBehaviour {
-	private static Main main;
-
-	public static void init(Main m) {
-		main = m;
-	}
-
+public class GameInput {
 	public static void updateInput() {
+		Game game = Game.instance;
+		Main main = Main.instance;
+		//main.gui
 		if(Input.GetKey(KeyCode.R)){
-			main.UpdateMove ();
+			game.UpdateMove ();
 		}else{
-			main.UpdateSelect();
+			game.UpdateSelect();
 		}
 	}
 }

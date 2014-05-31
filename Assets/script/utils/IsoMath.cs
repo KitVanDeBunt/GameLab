@@ -9,8 +9,12 @@ public class IsoMath : MonoBehaviour {
 	private static int i;
 	private static int j;
 
-	public static Vector2 tileToWorld(int tx, int ty){
-		return new Vector2((ty * tileW/2) + (tx * tileW/2), -((tx * tileH/2) - (ty * tileH/2)));
+	public static Vector2 tileToWorld(int tileX, int tileY){
+		return new Vector2((tileY * tileW/2) + (tileX * tileW/2), -((tileX * tileH/2) - (tileY * tileH/2)));
+	}
+	
+	public static Vector3 tileToWorld3D(float px,float py, float pz){
+		return new Vector3((py * tileW/2) + (px * tileW/2), -((px * tileH/2) - (py * tileH/2)),pz);
 	}
 	
 	public static Vector2 worldToTile(float px,float py){
@@ -23,7 +27,6 @@ public class IsoMath : MonoBehaviour {
 		float ty = 1 / tileW * px + 1 / tileH * py - 0.5f +1;
 		return new Vector2(tx, ty);
 	}
-
 	
 	public static Vector2 getMouseWorldPosition(){
 		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);

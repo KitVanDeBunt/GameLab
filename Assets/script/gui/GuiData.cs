@@ -17,15 +17,17 @@ public class GuiData
 [System.Serializable]
 public class HitBox{
 	[SerializeField]
-	internal int width,height,x,y;
+	internal int x,y;
 }
 
 [System.Serializable]
 public class GuiButton:HitBox
 {
 	[SerializeField]
-	private bool drawHitBox;
-	[SerializeField]
 	internal Sprite sprite;
+	[SerializeField]
+	internal bool isButton = true;
+	[SerializeField]
+	internal Message message;
 }
 
