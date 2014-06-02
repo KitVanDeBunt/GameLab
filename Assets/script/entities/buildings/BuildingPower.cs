@@ -3,6 +3,10 @@ using System.Collections;
 
 public class BuildingPower : MonoBehaviour, IBuilding {
 	[SerializeField]
+	private int buyAmount;
+	[SerializeField]
+	private int sellAmount;
+	[SerializeField]
 	private int energy;
 	[SerializeField]
 	private int maxHealth;
@@ -31,5 +35,13 @@ public class BuildingPower : MonoBehaviour, IBuilding {
 			return true;
 		}
 		return false;
+	}
+	
+	public int getBuyAmount() {
+		return buyAmount;
+	}
+	
+	public int getSellAmount() {
+		return sellAmount;
 	}
 }

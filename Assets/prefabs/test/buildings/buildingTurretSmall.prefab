@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: BuildingRefinery
+  m_Name: buildingTurretSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.3295231, y: 10.1422091, z: 0}
+  m_LocalPosition: {x: -6.64038754, y: 1.29202843, z: -8.17469692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -36,13 +36,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b0469accb689145b8ce26a4c66f86d, type: 3}
+  m_Script: {fileID: 11500000, guid: cbe0e2b9dbd36504991e73493103e9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buyAmount: 500
-  sellAmount: 200
-  energy: -200
-  maxHealth: 120
+  buyAmount: 150
+  sellAmount: 50
+  energy: -100
+  maxHealth: 80
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -64,7 +64,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortingLayerID: 3427997089
-  m_Sprite: {fileID: 21300000, guid: d195c54bf0b007a4ea59af547143b448, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68f18e7fc75616640bf0a7708ffe68a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
