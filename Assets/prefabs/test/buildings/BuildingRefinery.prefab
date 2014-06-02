@@ -39,6 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b0469accb689145b8ce26a4c66f86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buyAmount: 500
+  sellAmount: 200
   energy: -200
   maxHealth: 120
 --- !u!212 &21200000

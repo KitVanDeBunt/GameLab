@@ -3,6 +3,10 @@ using System.Collections;
 
 public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 	[SerializeField]
+	private int buyAmount;
+	[SerializeField]
+	private int sellAmount;
+	[SerializeField]
 	private int energy;
 	[SerializeField]
 	private int maxHealth;
@@ -33,5 +37,13 @@ public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 			return true;
 		}
 		return false;
+	}
+	
+	public int getBuyAmount() {
+		return buyAmount;
+	}
+	
+	public int getSellAmount() {
+		return sellAmount;
 	}
 }
