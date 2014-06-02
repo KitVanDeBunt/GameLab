@@ -52,12 +52,13 @@ public class GuiManager
 
 		for (int i = 0; i < guiData[currentActive].buttons.Length; i++) {
 			string name = "guibutton "+i.ToString()+" "+guiint;
-			GameObject button = new GameObject(name);
+			GameObject button = (GameObject)GameObject.Instantiate( guiData[currentActive].buttons[i].gameObject,Vector3.zero,Quaternion.identity);
+			//GameObject button = new GameObject(name);
 			button.layer = LayerMask.NameToLayer("Gui");
 			button.transform.parent = guiData[currentActive].buttons[i].parent;
 			button.transform.position = new Vector3(guiData[currentActive].buttons[i].x/100.0f
 			                                        ,guiData[currentActive].buttons[i].y/100.0f,0);
-			button.AddComponent<SpriteRenderer>().sprite = guiData[currentActive].buttons[i].sprite;
+			//button.AddComponent<SpriteRenderer>().sprite = guiData[currentActive].buttons[i].sprite;
 			button.tag = "Button";
 
 			buttonGameObjects.Add(button);

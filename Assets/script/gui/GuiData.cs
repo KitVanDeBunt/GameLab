@@ -31,5 +31,7 @@ public class GuiButton:HitBox
 	internal Message message;
 	[SerializeField]
 	internal Transform parent;
+	[SerializeField]
+	internal GameObject gameObject;
 }
 
