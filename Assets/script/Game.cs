@@ -65,7 +65,7 @@ public class Game : MonoBehaviour {
 				selected.Clear();
 				for(int i = 0;i < selectedArea.Length;i++){
 					//Debug.Log("selected: ("+selectedArea[i].x+","+selectedArea[i].y+")");
-					LevelData.LoadedGroundTiles[selectedArea[i].x,selectedArea[i].y].GetComponent<SpriteRenderer>().color = new Color(0,0,1,1);
+					//LevelData.LoadedGroundTiles[selectedArea[i].x,selectedArea[i].y].GetComponent<SpriteRenderer>().color = new Color(0,0,1,1);
 					MapObject Tempselected = LevelData.GroundVehicles [(int)selectedArea[i].x, (int)selectedArea[i].y];
 					if(Tempselected != null){
 						tempSelectedIds.Add(Tempselected.gameObject.GetInstanceID());
@@ -109,12 +109,14 @@ public class Game : MonoBehaviour {
 				}else if(Input.GetMouseButtonDown(1)){
 					if(selectedIDs.Length > 0){
 						print ("[Main] find path");
-						VecInt[] newPath = PathFind.FindPath (
-							new VecInt(selected[0].pos.x,selected[0].pos.y)
-						, new VecInt((int)TilePos.x,(int)TilePos.y)
-						, LevelData.CollsionData);
-						if(newPath != null){
-							selected[0].gameObject.GetComponent<Unit>().FollowPath(newPath);
+						for (int i = 0;i<selected.Count;i++){
+							VecInt[] newPath = PathFind.FindPath (
+								new VecInt(selected[i].pos.x,selected[i].pos.y)
+							, new VecInt((int)TilePos.x,(int)TilePos.y)
+							, LevelData.CollsionData);
+							if(newPath != null){
+								selected[i].gameObject.GetComponent<Unit>().FollowPath(newPath);
+							}
 						}
 					}
 				}
