@@ -43,6 +43,9 @@ MonoBehaviour:
   sellAmount: 50
   energy: -100
   maxHealth: 80
+  buildingX: 1
+  buildingY: 1
+  buildingHeight: 3
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

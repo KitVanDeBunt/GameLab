@@ -12,6 +12,13 @@ public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 	private int maxHealth;
 	private int health;
 	
+	[SerializeField]
+	private int buildingX;
+	[SerializeField]
+	private int buildingY;
+	[SerializeField]
+	private int buildingHeight;
+	
 	private SpriteRenderer spriterenderer;
 	
 	void Start () {
