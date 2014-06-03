@@ -13,6 +13,9 @@ public class PathFollower
 	private bool turnUnit;
 	
 	private CheckNewPosition rotater;
+	
+	private VecInt startPos;
+	private VecInt endPos;
 
 	internal PathFollower(Transform _trans){
 		trans = _trans;
@@ -53,7 +56,17 @@ public class PathFollower
 		}
 	}
 	
+	private void checkNextPos(VecInt next){
+		//check collision array
+		//if no collision
+		//update collision array
+		//else
+		//set new path
+	}
+	
 	internal void SetPath(VecInt[] path){
+		startPos = path[0];
+		endPos = path[path.Length-1];
 		currentPath = path;
 		pathProgress = 0;
 	}

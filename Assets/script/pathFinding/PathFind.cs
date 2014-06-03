@@ -1,33 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-
-public class Node :VecInt
-{
-	public float G; // movement from start
-	public float H; // estimated Cost til end
-	public float F; // weight
-	public Node parentNode;
-	public Node(float g, float h,float f, Node parent, int _x,int _y) :base(_x,_y)
-	{
-		G = g;
-		H = h;
-		F = f;
-		parentNode = parent;
-	}
-}
-
-public class NewNode :VecInt
-{
-	public float K; // estimated Cost til end
-	public NewNode(float k, int _x,int _y) :base(_x,_y)
-	{
-		K = k;
-	}
-}
 
 public class PathFind : MonoBehaviour {
+	
+	//settings
+	private const bool alwayReturnPath = true;
+	
 	private static int i;
 	private static int j;
 	private static List<Node> open;
@@ -179,8 +158,6 @@ public class PathFind : MonoBehaviour {
 			whileLooped++;
 			//sort
 			open.Sort(new SortF());
-			//for(i = open.Count-1; i > -1; i--){
-			
 			
 			Node currentCheckNode = open[0];
 			//print ("[PathFind] open count"+open.Count);
@@ -189,7 +166,7 @@ public class PathFind : MonoBehaviour {
 			for(j = 0; j <newOpenList.Length;j++){
 				//draw
 				Debug.DrawLine(IsoMath.tileToWorld(currentCheckNode.x,currentCheckNode.y)
-				               ,IsoMath.tileToWorld(newOpenList[j].x,newOpenList[j].y),Color.magenta,3.0f);
+				               ,IsoMath.tileToWorld(newOpenList[j].x,newOpenList[j].y),Color.magenta,1.5f);
 				               
 				bool inOPenList = false;
 				float newG = currentCheckNode.G+newOpenList[j].K;
@@ -215,8 +192,6 @@ public class PathFind : MonoBehaviour {
 					if(newN.x==B.x&&newN.y==B.y){
 						print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!\n");
 						endFound = true;
-						closed.Add(currentCheckNode);
-						open.Remove(currentCheckNode);
 						closed.Add(newN);
 						break;
 					}
@@ -224,14 +199,9 @@ public class PathFind : MonoBehaviour {
 				}
 				
 			}
-			if(endFound){
-				break;
-			}
 			closed.Add(currentCheckNode);
 			open.Remove(currentCheckNode);
 			
-			
-			//}
 			if(endFound){
 				break;
 			}
@@ -247,18 +217,44 @@ public class PathFind : MonoBehaviour {
 		print ("[PathFind] Destination: "+B.print+"\n");
 		print ("[PathFind] Dist: "+EstimateDistance(A,B)+"\n");
 		//returnPath.Add(B);
+		
 		List<Node> tempReturnPath = new List<Node>();
-		tempReturnPath.Add(closed[closed.Count-1]);
-		Node privious = tempReturnPath[tempReturnPath.Count-1].parentNode;
-		tempReturnPath.Add(privious);
-		while(true){
-			privious = tempReturnPath[tempReturnPath.Count-1].parentNode;
-			if(privious!=null){
-				tempReturnPath.Add(privious);
-			}else{
-				break;
+		
+		if(endFound){
+			//get reversed path out of closed
+			tempReturnPath.Add(closed[closed.Count-1]);
+			Node privious = tempReturnPath[tempReturnPath.Count-1].parentNode;
+			tempReturnPath.Add(privious);
+			while(true){
+				privious = tempReturnPath[tempReturnPath.Count-1].parentNode;
+				if(privious!=null){
+					tempReturnPath.Add(privious);
+				}else{
+					break;
+				}
+			}
+		}else if(alwayReturnPath){
+			//get reversed path out of closed
+			Node closestToEnd = closed[0];
+			for(i = 0;i < closed.Count;i++){
+				if(closed[i].H<closestToEnd.H){
+					closestToEnd = closed [i];
+				}
+			}
+			tempReturnPath.Add(closestToEnd);
+			Node privious = closestToEnd.parentNode;
+			tempReturnPath.Add(privious);
+			while(true){
+				privious = tempReturnPath[tempReturnPath.Count-1].parentNode;
+				if(privious!=null){
+					tempReturnPath.Add(privious);
+				}else{
+					break;
+				}
 			}
 		}
+		
+		//reverse
 		for(i = tempReturnPath.Count-1;i > -1;i--){
 			returnPath.Add (new VecInt(tempReturnPath[i].x,tempReturnPath[i].y));
 		}
@@ -267,7 +263,12 @@ public class PathFind : MonoBehaviour {
 			drawPath = returnPath.ToArray();
 			return returnPath.ToArray();
 		} else {
-			return null;
+			if(alwayReturnPath){
+				drawPath = returnPath.ToArray();
+				return returnPath.ToArray();
+			}else{
+				return null;
+			}
 		}
 	}
 }
