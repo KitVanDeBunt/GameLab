@@ -11,11 +11,9 @@ public class BuildingRefinery : MonoBehaviour, IBuilding {
 	[SerializeField]
 	private int maxHealth;
 	private int health;
-
+	
 	[SerializeField]
-	private int buildingX;
-	[SerializeField]
-	private int buildingY;
+	private int buildingWidth;
 	[SerializeField]
 	private int buildingHeight;
 
@@ -27,6 +25,7 @@ public class BuildingRefinery : MonoBehaviour, IBuilding {
 		onEnergyStateChange(LevelData.ENERGY);
 		LevelData.buildingList.Add(this);
 		LevelData.calculateEnegy();
+		transform.position = LevelData.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight());	
 	}
 	
 	void Update () {
@@ -62,15 +61,11 @@ public class BuildingRefinery : MonoBehaviour, IBuilding {
 		return sellAmount;
 	}
 
-	public int getBuildingX() {
-		return 0;
+	public int getBuildingWidth() {
+		return buildingWidth;
 	}
-
-	public int getBuildingY() {
-		return 0;
-	}
-
+	
 	public int getBuildingHeight() {
-		return 0;
+		return buildingHeight;
 	}
 }
