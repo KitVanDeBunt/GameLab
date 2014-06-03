@@ -12,8 +12,20 @@ public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 	private int maxHealth;
 	private int health;
 	
+	[SerializeField]
+	private int buildingX;
+	[SerializeField]
+	private int buildingY;
+	[SerializeField]
+	private int buildingHeight;
+	
+	private SpriteRenderer spriterenderer;
+	
 	void Start () {
 		health = maxHealth;
+		spriterenderer = GetComponent<SpriteRenderer>();
+		LevelData.buildingList.Add(this);
+		LevelData.calculateEnegy();
 	}
 	
 	void Update () {
@@ -39,6 +51,10 @@ public class BuildingTurretSmall : MonoBehaviour, IBuilding, ITurret {
 		return false;
 	}
 	
+	public void onEnergyStateChange(bool state) {
+		if(state) { spriterenderer.color = Color.white; } else { spriterenderer.color = Color.gray; }
+	}
+
 	public int getBuyAmount() {
 		return buyAmount;
 	}

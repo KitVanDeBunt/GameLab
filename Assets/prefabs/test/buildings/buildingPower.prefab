@@ -41,8 +41,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyAmount: 200
   sellAmount: 80
-  energy: 50
+  energy: 500
   maxHealth: 1000
+  buildingX: 2
+  buildingY: 2
+  buildingHeight: 3
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

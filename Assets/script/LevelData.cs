@@ -24,7 +24,7 @@ public class LevelData : MonoBehaviour{
 	public static int[,] tileData;
 	public static int[,] objectData;
 	private static bool[,] collsionData;
-	private static List<IBuilding> buildingList;
+	public static List<IBuilding> buildingList;
 	
 	private static GameObject levelHolder;
 	
@@ -39,7 +39,7 @@ public class LevelData : MonoBehaviour{
 	private static int w,h;
 
 	private static int energyLevel;
-	public static bool ENERGY;
+	public static bool ENERGY = true;
 
 	private void Start(){
 		levelHolder = new GameObject("LevelHolder");
@@ -85,7 +85,7 @@ public class LevelData : MonoBehaviour{
 		return data;
 	}
 
-	private static void calculateEnegy() {
+	public static void calculateEnegy() {
 		energyLevel = 0;
 
 		int buildingLength = buildingList.Count;
@@ -103,8 +103,10 @@ public class LevelData : MonoBehaviour{
 	}
 
 	private static void onEnergyStateChange() {
-		//turn off all energy consuming buildings
-		//if buildingList[i].getEnergyUsage(); returns lower than 0 turn off building
+		Debug.Log (ENERGY);
+		for(int i = buildingList.Count - 1; i > -1; i-- ) {
+			buildingList[i].onEnergyStateChange(ENERGY);
+		}
 	}
 
 	private static bool constructBuilding(int x, int y, int id, int size) {
@@ -125,8 +127,9 @@ public class LevelData : MonoBehaviour{
 		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		building.transform.parent = levelHolder.transform;
-		buildingList.Add((IBuilding)building.GetComponent(typeof(IBuilding)));
-		calculateEnegy();
+		//IBuilding s = (IBuilding)building.GetComponent(typeof(IBuilding));  <--- is now done in the building start() func.
+		//buildingList.Add(s);
+		//calculateEnegy();
 		return true;
 	}
 	
