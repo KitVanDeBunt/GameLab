@@ -70,6 +70,8 @@ public class LevelData : MonoBehaviour{
 			constructBuilding(5, 6 + j * 2, 0, 2);
 			constructBuilding(9, 6 + j * 2, 1, 2);
 			constructBuilding(13, 6 + j * 2, 2, 2);
+			constructBuilding(15, 6 + j * 2, 3, 1);
+			constructBuilding(0, j, 3, 1);
 		}
 	}
 
@@ -109,7 +111,18 @@ public class LevelData : MonoBehaviour{
 		}
 	}
 
-	private static bool constructBuilding(int x, int y, int id, int size) {
+	public static bool canConstructHere(int x, int y, int size) {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(collsionData[x + i, y + j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static bool constructBuilding(int x, int y, int id, int size) {
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
 				if(collsionData[x + i, y + j]) {
@@ -124,13 +137,19 @@ public class LevelData : MonoBehaviour{
 			}
 		}
 
-		Vector2 pos = IsoMath.tileToWorld(x - 1 + (size / 2), y + (size / 2));
+		Vector2 pos = IsoMath.tileToWorld(x + (size / 2), y + (size / 2));
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, (pos.x - 1) * pos.y / 40f + 5f), new Quaternion());
 		building.transform.parent = levelHolder.transform;
 		//IBuilding s = (IBuilding)building.GetComponent(typeof(IBuilding));  <--- is now done in the building start() func.
 		//buildingList.Add(s);
 		//calculateEnegy();
 		return true;
+	}
+
+	public static Vector3 addSizeToPosition(Vector3 vec, int width, int height) {
+		float px = vec.x - ((width - 1f) * 0.5f);
+		float py = vec.y + ((height - width) * 0.25f);
+		return new Vector3(px, py, px * py / 40f + 5f);
 	}
 	
 	private static void BuildObjects (int[,] data) {

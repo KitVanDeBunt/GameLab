@@ -11,7 +11,6 @@ public interface IBuilding
 	int getBuyAmount();
 	int getSellAmount();
 
-	int getBuildingX();
-	int getBuildingY();
+	int getBuildingWidth();
 	int getBuildingHeight();
 }

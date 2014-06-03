@@ -13,9 +13,7 @@ public class BuildingBase : MonoBehaviour, IBuilding {
 	private int health;
 	
 	[SerializeField]
-	private int buildingX;
-	[SerializeField]
-	private int buildingY;
+	private int buildingWidth;
 	[SerializeField]
 	private int buildingHeight;
 	
@@ -26,6 +24,7 @@ public class BuildingBase : MonoBehaviour, IBuilding {
 		spriterenderer = GetComponent<SpriteRenderer>();
 		LevelData.buildingList.Add(this);
 		LevelData.calculateEnegy();
+		transform.position = LevelData.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight());
 	}
 
 	void Update () {
@@ -60,15 +59,11 @@ public class BuildingBase : MonoBehaviour, IBuilding {
 		return sellAmount;
 	}
 	
-	public int getBuildingX() {
-		return 0;
-	}
-	
-	public int getBuildingY() {
-		return 0;
+	public int getBuildingWidth() {
+		return buildingWidth;
 	}
 	
 	public int getBuildingHeight() {
-		return 0;
+		return buildingHeight;
 	}
 }
