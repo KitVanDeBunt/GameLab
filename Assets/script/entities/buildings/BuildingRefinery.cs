@@ -11,9 +11,15 @@ public class BuildingRefinery : MonoBehaviour, IBuilding {
 	[SerializeField]
 	private int maxHealth;
 	private int health;
+
+	private SpriteRenderer spriterenderer;
 	
 	void Start () {
 		health = maxHealth;
+		spriterenderer = GetComponent<SpriteRenderer>();
+		onEnergyStateChange(LevelData.ENERGY);
+		LevelData.buildingList.Add(this);
+		LevelData.calculateEnegy();
 	}
 	
 	void Update () {
@@ -35,6 +41,10 @@ public class BuildingRefinery : MonoBehaviour, IBuilding {
 			return true;
 		}
 		return false;
+	}
+
+	public void onEnergyStateChange(bool state) {
+		if(state) { spriterenderer.color = Color.white; } else { spriterenderer.color = Color.gray; }
 	}
 
 	public int getBuyAmount() {
