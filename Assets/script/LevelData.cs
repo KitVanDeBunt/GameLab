@@ -93,8 +93,6 @@ public class LevelData : MonoBehaviour{
 			energyLevel += buildingList[i].getEnergyUsage();
 		}
 
-		Debug.Log (energyLevel);
-
 		if(energyLevel > -1 && !ENERGY) {
 			ENERGY = true;
 			onEnergyStateChange();
