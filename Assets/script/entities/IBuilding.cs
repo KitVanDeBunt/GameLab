@@ -8,4 +8,8 @@ public interface IBuilding
 	int getEnergyUsage();
 	int getBuyAmount();
 	int getSellAmount();
+
+	int getBuildingX();
+	int getBuildingY();
+	int getBuildingHeight();
 }
