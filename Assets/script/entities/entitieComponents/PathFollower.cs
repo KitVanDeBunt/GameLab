@@ -46,7 +46,9 @@ public class PathFollower
 					//trans.position = new Vector3(newPos.x,newPos.y,zpos);
 					if(!turnUnit)
 					{
-						trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+						if(checkNextPosFree(currentPath[pathProgress],oldPos)){
+							trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+						}
 					}
 					oldPos = currentPath[pathProgress];
 					pathProgress+= 1;
@@ -56,16 +58,27 @@ public class PathFollower
 		}
 	}
 	
-	private void checkNextPos(VecInt next){
+	private bool checkNextPosFree(VecInt next,VecInt current){
 		//check collision array
-		//if no collision
-		//update collision array
-		//else
-		//set new path
+		if (LevelData.CollsionData [next.x, next.y]) {
+			//set new path
+			Debug.Log("newPath!!!!!!!!!!!!!!");
+			return false;
+		} else {
+			//update collision array if free
+			//Debug.Log(current.print);
+			LevelData.GroundVehicles [next.x, next.y] = LevelData.GroundVehicles [current.x, current.y];
+			LevelData.GroundVehicles [current.x, current.y] = null;
+			LevelData.objectData [current.x, current.y] = 0;
+			LevelData.objectData [next.x, next.y] = 1;
+			return true;
+		}
+
 	}
 	
 	internal void SetPath(VecInt[] path){
 		startPos = path[0];
+		oldPos = startPos;
 		endPos = path[path.Length-1];
 		currentPath = path;
 		pathProgress = 0;
