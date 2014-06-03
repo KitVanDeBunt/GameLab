@@ -210,8 +210,7 @@ public class PathFind : MonoBehaviour {
 				pathOpen = false;
 			}
 		}
-		print ("[PathFind] whileLooped: "+whileLooped+"\n");
-		print ("[PathFind] Start: "+A.print+"\n");
+		//print ("[PathFind] whileLooped: "+whileLooped+"\n");
 		print ("[PathFind] Start: "+A.print+"\n");
 		print ("[PathFind] Start Surounding: "+SurroundingArea(A,width,height,collisionArray).Length+"\n");
 		print ("[PathFind] Destination: "+B.print+"\n");

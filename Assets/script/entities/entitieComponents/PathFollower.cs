@@ -44,14 +44,14 @@ public class PathFollower
 						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
 					}
 					//trans.position = new Vector3(newPos.x,newPos.y,zpos);
+					oldPos = currentPath[pathProgress];
+					pathProgress+= 1;
 					if(!turnUnit)
 					{
 						if(checkNextPosFree(currentPath[pathProgress],oldPos)){
 							trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
 						}
 					}
-					oldPos = currentPath[pathProgress];
-					pathProgress+= 1;
 				}
 			}
 			loopInt += 1;
@@ -60,17 +60,34 @@ public class PathFollower
 	
 	private bool checkNextPosFree(VecInt next,VecInt current){
 		//check collision array
-		if (LevelData.CollsionData [next.x, next.y]) {
+		if (LevelData.GroundVehicles [next.x, next.y] !=null) {
 			//set new path
-			Debug.Log("newPath!!!!!!!!!!!!!!");
-			return false;
+			//Debug.Log("newPath!!!!!!!!!!!!!!");
+
+			SetPath(PathFind.FindPath (
+				new VecInt(current.x,current.y)
+				, new VecInt(oldPos.x,oldPos.y)
+				, LevelData.CollsionData)
+			 );
+			return true;
 		} else {
 			//update collision array if free
-			//Debug.Log(current.print);
+			//Debug.Log(current.print+" Cur: "+LevelData.GroundVehicles [current.x, current.y]);
+			//Debug.Log(next.print+" Next: "+LevelData.GroundVehicles [next.x, next.y]);
+
 			LevelData.GroundVehicles [next.x, next.y] = LevelData.GroundVehicles [current.x, current.y];
+			LevelData.GroundVehicles [next.x, next.y].pos = next;
 			LevelData.GroundVehicles [current.x, current.y] = null;
 			LevelData.objectData [current.x, current.y] = 0;
 			LevelData.objectData [next.x, next.y] = 1;
+
+			LevelData.CollsionData[current.x,current.y] = false;
+			LevelData.CollsionData[next.x,next.y] = true;
+
+			//Debug.Log(next.print+" Next: "+LevelData.GroundVehicles [next.x, next.y]);
+			if(next == endPos){
+				currentPath = null;
+			}
 			return true;
 		}
 
@@ -78,10 +95,14 @@ public class PathFollower
 	
 	internal void SetPath(VecInt[] path){
 		startPos = path[0];
+		Debug.Log ("[set] "+path[0].print);
+		Debug.Log ("[set] "+path[1].print);
+
 		oldPos = startPos;
 		endPos = path[path.Length-1];
 		currentPath = path;
 		pathProgress = 0;
+		loopInt = 0;
 	}
 }
 
