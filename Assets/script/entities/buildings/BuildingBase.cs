@@ -37,7 +37,7 @@ public class BuildingBase : MonoBehaviour, IBuilding {
 		return false;
 	}
 	
-	public int getBuyAmount{
+	public int getBuyAmount() {
 		return buyAmount;
 	}
 	
