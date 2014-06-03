@@ -44,4 +44,16 @@ public class BuildingPower : MonoBehaviour, IBuilding {
 	public int getSellAmount() {
 		return sellAmount;
 	}
+	
+	public int getBuildingX() {
+		return 0;
+	}
+	
+	public int getBuildingY() {
+		return 0;
+	}
+	
+	public int getBuildingHeight() {
+		return 0;
+	}
 }
