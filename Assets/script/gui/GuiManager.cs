@@ -23,7 +23,7 @@ public class GuiManager
 	
 	[HideInInspector]
 	[SerializeField]
-	private Transform TopR,BottomL,Center;
+	private Transform TopR,BottomL,Center,CenterR;
 	
 	[HideInInspector]
 	[SerializeField]
@@ -112,9 +112,11 @@ public class GuiManager
 		TopR = buildTransform(TopR,guiCam.transform,"RopRight");
 		BottomL = buildTransform(BottomL,guiCam.transform,"BottomLeft");
 		Center = buildTransform(Center,guiCam.transform,"Center");
+		CenterR = buildTransform(CenterR,guiCam.transform,"CenterR");
 		TopR.localPosition = new Vector3( screenWidth/2, screenHeight/2,10);
 		BottomL.localPosition = new Vector3( -screenWidth/2, -screenHeight/2,10);
 		Center.localPosition = new Vector3( 0,0,10);
+		CenterR.localPosition = new Vector3( screenWidth/2,0,10);
 		
 		//TopR.localScale = new Vector3( scale,scale,scale);
 		//BottomL.localScale = new Vector3( scale,scale,scale);

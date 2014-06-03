@@ -28,7 +28,7 @@ public class GuiButton:HitBox
 	[SerializeField]
 	internal bool isButton = true;
 	[SerializeField]
-	internal Message message;
+	internal string message;
 	[SerializeField]
 	internal Transform parent;
 	[SerializeField]

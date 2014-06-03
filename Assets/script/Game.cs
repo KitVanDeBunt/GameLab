@@ -39,8 +39,8 @@ public class Game : MonoBehaviour {
 		EventManager.OnGuiInput -= GuiInput;
 	}
 	
-	private void GuiInput(Message message){
-		Debug.Log(message);
+	private void GuiInput(string message){
+		Debug.Log("[Game]: Event Message:"+message);
 	}
 	
 	private void Awake(){
