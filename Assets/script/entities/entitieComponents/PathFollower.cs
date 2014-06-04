@@ -26,6 +26,8 @@ public class PathFollower
 	internal void Init(){
 		pos = trans.position;
 	}
+
+	private Vector3 oldWorldPos;
 	
 	internal void loop(){
 		//transform.position = Vector3.Lerp(
@@ -38,8 +40,11 @@ public class PathFollower
 						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
 					}
 				}
+				Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
+				//if(loopInt > 25){
+				//	trans.position = Vector3.Lerp(oldWorldPos,
+				//}
 				if(loopInt % 50 == 0){
-					Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
 					if(pathProgress>0){
 						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
 					}
@@ -52,6 +57,7 @@ public class PathFollower
 							trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
 						}
 					}
+					loopInt = 0;
 				}
 			}
 			loopInt += 1;

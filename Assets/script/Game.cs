@@ -2,6 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+enum InputState{
+	normal,
+	multiselect,
+	buidingPlace
+}
 public class Game : MonoBehaviour {
 	
 	[SerializeField]
@@ -14,12 +19,13 @@ public class Game : MonoBehaviour {
 	private int[] selectedIDs;
 	private List<MapObject> selected = new List<MapObject>();
 	private int[] location;
-	private bool multiselect;
+	//private bool multiselect;
 	private Vector3 startMousePos;
 	private VecInt startTilePos;
+	private InputState state;
 
 	private static Game _instance;
-	
+
 	public static Game instance
 	{
 		get
@@ -41,10 +47,18 @@ public class Game : MonoBehaviour {
 	
 	private void GuiInput(string message){
 		Debug.Log("[Game]: Event Message:"+message);
+		if (message == "Button1") {
+			//Debug.Log("hello");
+			Vector2 hello = IsoMath.worldToTile(transform.position.x,transform.position.y);
+			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
+			LevelData.constructBuilding(hello2.x,hello2.y,0,2);
+			//state = InputState.buidingPlace;
+		}
 	}
 	
 	private void Awake(){
 		_instance = this;
+		state = InputState.normal;
 	}
 	
 	private void Start(){
@@ -53,7 +67,7 @@ public class Game : MonoBehaviour {
 	
 	public void UpdateSelect(){
 		Vector2? TilePosN = IsoMath.getMouseTilePosition();
-		if (multiselect) {
+		if (state == InputState.multiselect) {
 			Vector2 currentMousePos = IsoMath.getMouseWorldPosition();
 			float areaWidth = currentMousePos.x-startMousePos.x;
 			float areaHeight = currentMousePos.y-startMousePos.y;
@@ -75,7 +89,7 @@ public class Game : MonoBehaviour {
 				selectedIDs = tempSelectedIds.ToArray();
 				Debug.Log("[Main] selected: "+selectedIDs.Length);
 				EventManager.CallOnSelect(selectedIDs);
-				multiselect = false;
+				state = InputState.normal;
 				multiSelectArea.SetActive(false);
 			}
 		}else{
@@ -84,7 +98,7 @@ public class Game : MonoBehaviour {
 				//print ("tile: " + TilePos + "\n");
 				//multi select
 				if(Input.GetMouseButtonDown(0)&&(Input.GetKey(KeyCode.RightControl)||Input.GetKey(KeyCode.LeftControl))){
-					multiselect = true;
+					state = InputState.multiselect;
 					multiSelectArea.SetActive(true);
 					startMousePos = IsoMath.getMouseWorldPosition3D();
 					multiSelectArea.transform.position = startMousePos;
