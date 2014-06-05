@@ -42,9 +42,11 @@ MonoBehaviour:
   buyAmount: 0
   sellAmount: 0
   energy: 0
-  maxHealth: 200
-  buildingWidth: 2
-  buildingHeight: 3
+  maxHealth: 0
+  health: 0
+  buildingWidth: 0
+  buildingHeight: 0
+  spriterenderer: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
