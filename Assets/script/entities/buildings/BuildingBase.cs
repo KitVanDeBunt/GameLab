@@ -1,69 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildingBase : MonoBehaviour, IBuilding {
-	[SerializeField]
-	private int buyAmount;
-	[SerializeField]
-	private int sellAmount;
-	[SerializeField]
-	private int energy;
-	[SerializeField]
-	private int maxHealth;
-	private int health;
+public class BuildingBase : Building {
+	public static int width = 2;
+	public static int height = 3;
 	
-	[SerializeField]
-	private int buildingWidth;
-	[SerializeField]
-	private int buildingHeight;
-	
-	private SpriteRenderer spriterenderer;
-
 	void Start () {
+		buyAmount = 0;
+		sellAmount = 500;
+		energy = 0;
+		health = 200;
+		
 		health = maxHealth;
+		buildingWidth = width;
+		buildingHeight = height;
 		spriterenderer = GetComponent<SpriteRenderer>();
+		onEnergyStateChange(LevelData.ENERGY);
 		LevelData.buildingList.Add(this);
 		LevelData.calculateEnegy();
-		transform.position = LevelData.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight());
+		transform.position = LevelData.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight());	
 	}
-
+	
 	void Update () {
-	
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public int getEnergyUsage() {
-		return energy;
-	}
-
-	public bool damage(int amount) {
-		health -= amount;
-		if(health < 0)
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	public void onEnergyStateChange(bool state) {
-	}
-
-	public int getBuyAmount() {
-		return buyAmount;
-	}
-	
-	public int getSellAmount() {
-		return sellAmount;
-	}
-	
-	public int getBuildingWidth() {
-		return buildingWidth;
-	}
-	
-	public int getBuildingHeight() {
-		return buildingHeight;
 	}
 }

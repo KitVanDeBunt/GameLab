@@ -39,12 +39,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe0e2b9dbd36504991e73493103e9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buyAmount: 150
-  sellAmount: 50
-  energy: -100
-  maxHealth: 80
-  buildingWidth: 1
-  buildingHeight: 3
+  buyAmount: 0
+  sellAmount: 0
+  energy: 0
+  maxHealth: 0
+  health: 0
+  buildingWidth: 0
+  buildingHeight: 0
+  spriterenderer: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
