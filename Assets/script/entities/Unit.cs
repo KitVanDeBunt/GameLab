@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
 	PathFollower pathFollower;	
 		
 	public void FollowPath(VecInt[] path){
-		pathFollower = new PathFollower (transform);
+		pathFollower = new PathFollower (this);
 		pathFollower.SetPath (path);
 	}
 

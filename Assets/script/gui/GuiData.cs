@@ -23,8 +23,8 @@ public class HitBox{
 [System.Serializable]
 public class GuiButton:HitBox
 {
-	[SerializeField]
-	internal Sprite sprite;
+	//[SerializeField]
+	//internal Sprite sprite;
 	[SerializeField]
 	internal bool isButton = true;
 	[SerializeField]

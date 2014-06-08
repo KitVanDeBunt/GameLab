@@ -6,7 +6,7 @@ public class PathFollower
 	private Vector3 pos;
 	private VecInt[] currentPath;
 	private int pathProgress;
-	private Transform trans;
+    private MonoBehaviour creator;
 	private float lerp;
 	private float loopInt = 0;
 	private VecInt oldPos;
@@ -17,14 +17,15 @@ public class PathFollower
 	private VecInt startPos;
 	private VecInt endPos;
 
-	internal PathFollower(Transform _trans){
-		trans = _trans;
-		rotater = trans.gameObject.GetComponent<CheckNewPosition>();
+	internal PathFollower(MonoBehaviour _creator){
+        creator = _creator;
+        rotater = creator.transform.gameObject.GetComponent<CheckNewPosition>();
 		Init ();
 	}
 
 	internal void Init(){
-		pos = trans.position;
+        pos = creator.transform.position;
+        oldWorldPos = creator.transform.position;
 	}
 
 	private Vector3 oldWorldPos;
@@ -34,31 +35,8 @@ public class PathFollower
 		//trans.Translate(0.05f,0.05f,0);
 		if (currentPath != null) {
 			if(pathProgress < currentPath.Length){
+
 				
-				if(loopInt % 25 == 0){
-					if(pathProgress>0){
-						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
-					}
-				}
-				Vector2 newPos = IsoMath.tileToWorld( currentPath[pathProgress].x,currentPath[pathProgress].y);
-				//if(loopInt > 25){
-				//	trans.position = Vector3.Lerp(oldWorldPos,
-				//}
-				if(loopInt % 50 == 0){
-					if(pathProgress>0){
-						turnUnit = rotater.CheckNewPos(oldPos,currentPath[pathProgress]);
-					}
-					//trans.position = new Vector3(newPos.x,newPos.y,zpos);
-					oldPos = currentPath[pathProgress];
-					pathProgress+= 1;
-					if(!turnUnit)
-					{
-						if(checkNextPosFree(currentPath[pathProgress],oldPos)){
-							trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
-						}
-					}
-					loopInt = 0;
-				}
 			}
 			loopInt += 1;
 		}
@@ -75,7 +53,7 @@ public class PathFollower
 				, new VecInt(oldPos.x,oldPos.y)
 				, LevelData.CollsionData)
 			 );
-			return true;
+			return false;
 		} else {
 			//update collision array if free
 			//Debug.Log(current.print+" Cur: "+LevelData.GroundVehicles [current.x, current.y]);
@@ -92,7 +70,7 @@ public class PathFollower
 
 			//Debug.Log(next.print+" Next: "+LevelData.GroundVehicles [next.x, next.y]);
 			if(next == endPos){
-				currentPath = null;
+				//currentPath = null;
 			}
 			return true;
 		}
@@ -101,14 +79,100 @@ public class PathFollower
 	
 	internal void SetPath(VecInt[] path){
 		startPos = path[0];
-		Debug.Log ("[set] "+path[0].print);
-		Debug.Log ("[set] "+path[1].print);
+		Debug.Log ("[path] "+path[0].print);
+		Debug.Log ("[path] "+path[1].print);
+		Debug.Log ("[path] Lenght: "+path.Length);
 
 		oldPos = startPos;
 		endPos = path[path.Length-1];
 		currentPath = path;
 		pathProgress = 0;
 		loopInt = 0;
+        oldWorldPos = creator.transform.position;
+        Animate();
 	}
+
+    private Vector2 newPos;
+
+    private void Animate()
+    {
+        if (pathProgress < currentPath.Length)
+        {
+           newPos = IsoMath.tileToWorld(currentPath[pathProgress + 1].x, currentPath[pathProgress + 1].y);
+           //yield return new WaitForSeconds(0.02f);
+           StartMove();
+        }
+    }
+
+    private void StartMove()
+    {
+        if (pathProgress < currentPath.Length - 1)
+        {
+            if (checkNextPosFree(currentPath[pathProgress + 1], oldPos))
+            {
+                turnUnit = rotater.CheckNewPos(oldPos, currentPath[pathProgress + 1],0.125f);
+                oldPos = currentPath[pathProgress + 1];
+                if (turnUnit)
+                {
+                    creator.StartCoroutine(RotateDelay());
+                }
+                else
+                {
+                    creator.StartCoroutine(UpdateMove());
+                }
+            }
+        }
+    }
+
+    IEnumerator UpdateMove()
+    {
+        //Debug.Log("t" + loopInt);
+        yield return new WaitForSeconds(0.02f);
+        
+        Vector3 newWorldPos = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+        creator.transform.position = Vector3.Lerp(oldWorldPos, newWorldPos, (loopInt / 50));
+        loopInt++;
+        if (loopInt >= 50){
+            //Debug.Log("move" + pathProgress);
+            oldWorldPos = creator.transform.position;
+            pathProgress += 1;
+            creator.transform.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+            loopInt = 0;
+            StartMove();
+        }
+        else if (pathProgress < currentPath.Length-1)
+        {
+            newPos = IsoMath.tileToWorld(currentPath[pathProgress + 1].x, currentPath[pathProgress + 1].y);
+            creator.StartCoroutine(UpdateMove());
+        }
+    }
+
+    IEnumerator RotateDelay()
+    {
+        yield return new WaitForSeconds(0.25f);
+        creator.StartCoroutine(UpdateMove());
+    }
+    
+            
+            
+           /* if (loopInt % 50 == 0)
+            {
+                Debug.Log("[path progress]: " + pathProgress);
+                oldWorldPos = trans.position;
+                if (pathProgress > 0)
+                {
+                    turnUnit = rotater.CheckNewPos(oldPos, currentPath[pathProgress]);
+                }
+                //trans.position = new Vector3(newPos.x,newPos.y,zpos);
+                oldPos = currentPath[pathProgress];
+                pathProgress += 1;
+                if (!turnUnit)
+                {
+                    if (checkNextPosFree(currentPath[pathProgress], oldPos))
+                    {
+                        trans.position = new Vector3(newPos.x, newPos.y, newPos.x * newPos.y / 40f + 5f);
+                    }
+                }
+            }*/
 }
 

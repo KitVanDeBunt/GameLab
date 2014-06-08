@@ -199,12 +199,11 @@ public class PathFind : MonoBehaviour {
 				}
 				
 			}
-			closed.Add(currentCheckNode);
-			open.Remove(currentCheckNode);
-			
 			if(endFound){
 				break;
 			}
+            closed.Add(currentCheckNode);
+			open.Remove(currentCheckNode);
 			if(open.Count==0){
 				print ("[PathFind] zero open!!!!!!!!!!!!!!!!!!!!\n");
 				pathOpen = false;

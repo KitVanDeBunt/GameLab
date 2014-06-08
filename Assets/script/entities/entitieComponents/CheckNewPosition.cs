@@ -9,7 +9,7 @@ public class CheckNewPosition : MonoBehaviour {
 	public int oldRotationStateNumber = 10;
 	public int newRotationStateNumber = 1;
 	// Update is called once per frame
-	public bool CheckNewPos (VecInt oldPos, VecInt newPos) {
+	public bool CheckNewPos (VecInt oldPos, VecInt newPos,float delay) {
 		//////for with 8 states
 
 		if(oldPos.x < newPos.x){
@@ -55,9 +55,16 @@ public class CheckNewPosition : MonoBehaviour {
 		frameManager.GetComponent<AnimFramesManager>().UpdateRotationAngle(newRotationStateNumber);
 		bool turning = false;
 		//if you need to turn and wait with moving, you need to enable this if statement
-		//if(newRotationStateNumber != oldRotationStateNumber){turning = true;}
-		oldRotationStateNumber = newRotationStateNumber;
+		if(newRotationStateNumber != oldRotationStateNumber){turning = true;}
+		
+        StartCoroutine(Rotate(delay));
 		return turning;
 	}
+
+    IEnumerator Rotate(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        oldRotationStateNumber = newRotationStateNumber;
+    }
 }
 

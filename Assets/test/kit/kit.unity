@@ -96,14 +96,14 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100205658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54636455, y: 0, z: 10}
+  m_LocalPosition: {x: 4.57212114, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 696423913}
-  - {fileID: 1154783797}
-  - {fileID: 1472828925}
-  - {fileID: 1446313989}
-  - {fileID: 925675532}
+  - {fileID: 227183259}
+  - {fileID: 1403821112}
+  - {fileID: 1699182581}
+  - {fileID: 696819273}
+  - {fileID: 1619852175}
   m_Father: {fileID: 1143465666}
 --- !u!1 &162049350
 GameObject:
@@ -155,6 +155,56 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &227183258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 227183259}
+  - 212: {fileID: 227183260}
+  m_Layer: 8
+  m_Name: button(Clone)
+  m_TagString: Button
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &227183259
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 227183258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.5, y: -1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 100205659}
+--- !u!212 &227183260
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 227183258}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 5b03396f34b621a4eabddad703c33716, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &279951624
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,56 +578,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2103997340}
---- !u!1 &633134737
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 633134738}
-  - 212: {fileID: 633134739}
-  m_Layer: 8
-  m_Name: bar(Clone)
-  m_TagString: Button
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &633134738
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 633134737}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.13, y: -.230000004, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 864597535}
---- !u!212 &633134739
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 633134737}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 3dbaae2b2d1a1d84fa0da91a827b61ad, type: 3}
-  m_Color: {r: 1, g: .448529422, b: .448529422, a: 1}
 --- !u!1 &639508201
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,39 +628,39 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!1 &696423912
+--- !u!1 &696819272
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 696423913}
-  - 212: {fileID: 696423914}
+  - 4: {fileID: 696819273}
+  - 212: {fileID: 696819274}
   m_Layer: 8
-  m_Name: button(Clone)
+  m_Name: guibuttonIronRefinery(Clone)
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &696423913
+--- !u!4 &696819273
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 696423912}
+  m_GameObject: {fileID: 696819272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.5, y: 1.75, z: 0}
+  m_LocalPosition: {x: -.5, y: .75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 100205659}
---- !u!212 &696423914
+--- !u!212 &696819274
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 696423912}
+  m_GameObject: {fileID: 696819272}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -676,7 +676,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5b03396f34b621a4eabddad703c33716, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 913ef4748bd05954b93379b71bb0bcb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &864597534
 GameObject:
@@ -700,44 +700,44 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 864597534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54636455, y: 2.72000003, z: 10}
+  m_LocalPosition: {x: 4.57212114, y: 2.72000003, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 633134738}
+  - {fileID: 963440135}
   m_Father: {fileID: 1143465666}
---- !u!1 &925675531
+--- !u!1 &963440134
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 925675532}
-  - 212: {fileID: 925675533}
+  - 4: {fileID: 963440135}
+  - 212: {fileID: 963440136}
   m_Layer: 8
-  m_Name: button(Clone)
+  m_Name: bar(Clone)
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &925675532
+--- !u!4 &963440135
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 925675531}
+  m_GameObject: {fileID: 963440134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.5, y: -2.25, z: 0}
+  m_LocalPosition: {x: -1.13, y: -.230000004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 100205659}
---- !u!212 &925675533
+  m_Father: {fileID: 864597535}
+--- !u!212 &963440136
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 925675531}
+  m_GameObject: {fileID: 963440134}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -753,7 +753,57 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5b03396f34b621a4eabddad703c33716, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3dbaae2b2d1a1d84fa0da91a827b61ad, type: 3}
+  m_Color: {r: 1, g: .448529422, b: .448529422, a: 1}
+--- !u!1 &1052451540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1052451541}
+  - 212: {fileID: 1052451542}
+  m_Layer: 8
+  m_Name: guibutton(Clone)
+  m_TagString: Button
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1052451541
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052451540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1274125192}
+--- !u!212 &1052451542
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052451540}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1111695665
 GameObject:
@@ -930,56 +980,6 @@ Transform:
   - {fileID: 100205659}
   - {fileID: 864597535}
   m_Father: {fileID: 2078084544}
---- !u!1 &1154783796
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1154783797}
-  - 212: {fileID: 1154783798}
-  m_Layer: 8
-  m_Name: button(Clone)
-  m_TagString: Button
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1154783797
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1154783796}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.5, y: .75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 100205659}
---- !u!212 &1154783798
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1154783796}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5b03396f34b621a4eabddad703c33716, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1217507314
 Prefab:
   m_ObjectHideFlags: 0
@@ -1082,21 +1082,21 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1274125191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.54636455, y: -2.72000003, z: 10}
+  m_LocalPosition: {x: -4.57212114, y: -2.72000003, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1695100896}
-  - {fileID: 1948756010}
+  - {fileID: 1052451541}
   m_Father: {fileID: 1143465666}
---- !u!1 &1446313988
+--- !u!1 &1403821111
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1446313989}
-  - 212: {fileID: 1446313990}
+  - 4: {fileID: 1403821112}
+  - 212: {fileID: 1403821113}
   m_Layer: 8
   m_Name: button(Clone)
   m_TagString: Button
@@ -1104,73 +1104,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1446313989
+--- !u!4 &1403821112
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1446313988}
+  m_GameObject: {fileID: 1403821111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.5, y: -1.25, z: 0}
+  m_LocalPosition: {x: -.5, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 100205659}
---- !u!212 &1446313990
+--- !u!212 &1403821113
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1446313988}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5b03396f34b621a4eabddad703c33716, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &1472828924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1472828925}
-  - 212: {fileID: 1472828926}
-  m_Layer: 8
-  m_Name: button(Clone)
-  m_TagString: Button
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1472828925
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1472828924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.5, y: -.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 100205659}
---- !u!212 &1472828926
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1472828924}
+  m_GameObject: {fileID: 1403821111}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -1258,6 +1208,56 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &1619852174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1619852175}
+  - 212: {fileID: 1619852176}
+  m_Layer: 8
+  m_Name: guibuttonPowerPlant(Clone)
+  m_TagString: Button
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1619852175
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619852174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.5, y: -.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 100205659}
+--- !u!212 &1619852176
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619852174}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 1d0f381f9d1fbb74e86260464d391f5f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1623203697
 Prefab:
   m_ObjectHideFlags: 0
@@ -1344,14 +1344,12 @@ MonoBehaviour:
     buttons:
     - x: 0
       y: 0
-      sprite: {fileID: 0}
       isButton: 0
       message: 
       parent: {fileID: 0}
       gameObject: {fileID: 0}
     - x: 0
       y: 0
-      sprite: {fileID: 0}
       isButton: 0
       message: 
       parent: {fileID: 0}
@@ -1459,6 +1457,56 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1274125192}
+--- !u!1 &1699182579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1699182581}
+  - 212: {fileID: 1699182580}
+  m_Layer: 8
+  m_Name: guibuttonIronFactory(Clone)
+  m_TagString: Button
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1699182580
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1699182579}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: ab382429021d4554088c85004ac984ca, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &1699182581
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1699182579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.5, y: 1.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 100205659}
 --- !u!1 &1791579736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,56 +1558,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!1 &1948756009
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1948756010}
-  - 212: {fileID: 1948756011}
-  m_Layer: 8
-  m_Name: guibutton(Clone)
-  m_TagString: Button
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1948756010
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1948756009}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1274125192}
---- !u!212 &1948756011
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1948756009}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2003857981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,49 +1842,42 @@ MonoBehaviour:
       buttons:
       - x: 0
         y: 0
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: BottomLeft
         parent: {fileID: 1274125192}
         gameObject: {fileID: 100000, guid: 9553aed8dc5e5294dbe3a03ea90859e6, type: 2}
       - x: -113
         y: -23
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 0
         message: 
         parent: {fileID: 864597535}
         gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
       - x: -50
         y: 175
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: Button1
         parent: {fileID: 100205659}
-        gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
+        gameObject: {fileID: 100000, guid: 8c8f7017a48d2bc4c93bdf7aa8dcce3b, type: 2}
       - x: -50
         y: 75
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: Button2
         parent: {fileID: 100205659}
-        gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
+        gameObject: {fileID: 100000, guid: 7d18504033403664781743cad587f5e6, type: 2}
       - x: -50
         y: -25
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: Button3
         parent: {fileID: 100205659}
-        gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
+        gameObject: {fileID: 100000, guid: fbc88c68e8a37c049ba55953b6b57fa6, type: 2}
       - x: -50
         y: -125
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: Button4
         parent: {fileID: 100205659}
         gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
       - x: -50
         y: -225
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: Button5
         parent: {fileID: 100205659}
@@ -1896,21 +1887,18 @@ MonoBehaviour:
       buttons:
       - x: 0
         y: 0
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1695100896}
         gameObject: {fileID: 0}
       - x: 187
         y: 88
-        sprite: {fileID: 21300000, guid: 12f3f410cc844d04898adadc75b1a150, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1695100896}
         gameObject: {fileID: 0}
       - x: 209
         y: 23
-        sprite: {fileID: 21300004, guid: 3dbaae2b2d1a1d84fa0da91a827b61ad, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1695100896}
@@ -1920,28 +1908,24 @@ MonoBehaviour:
       buttons:
       - x: 0
         y: 0
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1274125192}
         gameObject: {fileID: 0}
       - x: 512
         y: 44
-        sprite: {fileID: 21300000, guid: 12f3f410cc844d04898adadc75b1a150, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1274125192}
         gameObject: {fileID: 0}
       - x: 209
         y: 23
-        sprite: {fileID: 21300000, guid: 12f3f410cc844d04898adadc75b1a150, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1274125192}
         gameObject: {fileID: 0}
       - x: 314
         y: 5
-        sprite: {fileID: 21300000, guid: 12f3f410cc844d04898adadc75b1a150, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1274125192}
@@ -1951,25 +1935,24 @@ MonoBehaviour:
       buttons:
       - x: 0
         y: 0
-        sprite: {fileID: 21300000, guid: 3431cb07b91660c4f8fe060527d0d46d, type: 3}
         isButton: 1
         message: 
         parent: {fileID: 1274125192}
         gameObject: {fileID: 0}
     buttonGameObjects:
-    - {fileID: 1948756009}
-    - {fileID: 633134737}
-    - {fileID: 696423912}
-    - {fileID: 1154783796}
-    - {fileID: 1472828924}
-    - {fileID: 1446313988}
-    - {fileID: 925675531}
+    - {fileID: 1052451540}
+    - {fileID: 963440134}
+    - {fileID: 1699182579}
+    - {fileID: 696819272}
+    - {fileID: 1619852174}
+    - {fileID: 227183258}
+    - {fileID: 1403821111}
     TopR: {fileID: 864597535}
     BottomL: {fileID: 1274125192}
     Center: {fileID: 595208322}
     CenterR: {fileID: 100205659}
-    currentAspectRatio: 1.30381048
-    guiint: 5518
+    currentAspectRatio: 1.68092692
+    guiint: 5731
     guiCam: {fileID: 1143465665}
 --- !u!114 &2078084547
 MonoBehaviour:
