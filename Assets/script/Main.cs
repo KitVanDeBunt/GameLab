@@ -19,9 +19,9 @@ public class Main : MonoBehaviour
 	
 	void Start ()
 	{
-		if(UnityEditor.EditorApplication.isPlaying){
+		//if(UnityEditor.EditorApplication.isPlaying){
 			game = (Game)Game.instance;
-		}
+		//}
 		gui.init ();
 	}
 	void Update ()
@@ -34,5 +34,29 @@ public class Main : MonoBehaviour
 			PathFind.Update();
 		}
 	}
+
+    void OnEnable()
+    {
+        EventManager.OnGuiInput += GuiInput;
+    }
+
+
+    void OnDisable()
+    {
+        EventManager.OnGuiInput -= GuiInput;
+    }
+
+    private void GuiInput(string message)
+    {
+        Debug.Log("[Main]: Event Message:" + message);
+        if (message == "StartGame")
+        {
+            Application.LoadLevel("kit");
+        }
+        else if (message == "Menu")
+        {
+            Application.LoadLevel("MainMenu");
+        }
+    }
 }
 

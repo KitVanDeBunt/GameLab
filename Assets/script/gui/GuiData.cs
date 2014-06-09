@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
-public class GuiData
+
+public class GuiData:MonoBehaviour
 {
 	[SerializeField]
 	private int id;
@@ -30,7 +30,7 @@ public class GuiButton:HitBox
 	[SerializeField]
 	internal string message;
 	[SerializeField]
-	internal Transform parent;
+	internal GuiAnchorID parent;
 	[SerializeField]
 	internal GameObject gameObject;
 }

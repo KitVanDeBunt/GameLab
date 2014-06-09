@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: MainMenu
+  m_Name: InGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,24 +41,48 @@ MonoBehaviour:
   id: 0
   name: 
   buttons:
-  - x: 0
-    y: 60
+  - x: 50
+    y: 50
     isButton: 1
-    message: StartGame
-    parent: 4
+    message: Menu
+    parent: 8
+    gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
+  - x: -114
+    y: -24
+    isButton: 0
+    message: 
+    parent: 0
     gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
-  - x: 0
-    y: 0
+  - x: -50
+    y: -100
     isButton: 1
-    message: Options
-    parent: 4
-    gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
-  - x: 0
-    y: -60
+    message: Button1
+    parent: 0
+    gameObject: {fileID: 100000, guid: 8c8f7017a48d2bc4c93bdf7aa8dcce3b, type: 2}
+  - x: -50
+    y: -200
     isButton: 1
-    message: Exit
-    parent: 4
-    gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
+    message: Button2
+    parent: 0
+    gameObject: {fileID: 100000, guid: 7d18504033403664781743cad587f5e6, type: 2}
+  - x: -50
+    y: -300
+    isButton: 1
+    message: Button3
+    parent: 0
+    gameObject: {fileID: 100000, guid: fbc88c68e8a37c049ba55953b6b57fa6, type: 2}
+  - x: -50
+    y: -400
+    isButton: 0
+    message: 
+    parent: 0
+    gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
+  - x: -50
+    y: -500
+    isButton: 0
+    message: 
+    parent: 0
+    gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
