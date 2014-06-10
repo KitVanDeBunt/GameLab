@@ -113,21 +113,20 @@ public class Game : MonoBehaviour {
 						selected.Add(LevelData.GroundVehicles [(int)TilePos.x, (int)TilePos.y]);
 						selectedIDs = new int[]{selected[0].gameObject.GetInstanceID()};
 						Debug.Log("[Main] selected: "+selectedIDs.Length);
-						EventManager.CallOnSelect(selectedIDs);
 					}else{
 						selected.Clear();
 						selectedIDs = new int[]{};
 						Debug.Log("[Main] not selected: "+selectedIDs.Length);
-						EventManager.CallOnSelect(selectedIDs);
 					}
+					EventManager.CallOnSelect(selectedIDs);
 				}else if(Input.GetMouseButtonDown(1)){
 					if(selectedIDs.Length > 0){
 						print ("[Main] find path");
 						for (int i = 0;i<selected.Count;i++){
 							VecInt[] newPath = PathFind.FindPath (
 								new VecInt(selected[i].pos.x,selected[i].pos.y)
-							, new VecInt((int)TilePos.x,(int)TilePos.y)
-							, LevelData.CollsionData);
+								, new VecInt((int)TilePos.x,(int)TilePos.y)
+								, LevelData.CollsionData);
 							if(newPath != null){
 								selected[i].gameObject.GetComponent<Unit>().FollowPath(newPath);
 							}
@@ -168,6 +167,14 @@ public class Game : MonoBehaviour {
 				Vector2 deltaPos = (Vector2)currentPos - oldPos;
 				deltaPos *= -0.02f;
 				//Debug.Log("delta: "+deltaPos);
+				Camera.main.transform.Translate(new Vector3(deltaPos.x,deltaPos.y,0));
+				oldPos = (Vector2)currentPos;
+			}
+		}
+		if(Input.GetAxis("RightStickXAxis")>0 || Input.GetAxis("RightStickYAxis")>0 )
+		{
+			if(currentPos != null && oldPos != null){
+				Vector2 deltaPos = (Vector2)new Vector2(Input.GetAxis("RightStickXAxis")*2, Input.GetAxis("RigthStickYAxis")*2);
 				Camera.main.transform.Translate(new Vector3(deltaPos.x,deltaPos.y,0));
 				oldPos = (Vector2)currentPos;
 			}
