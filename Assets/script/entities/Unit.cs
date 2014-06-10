@@ -3,10 +3,25 @@ using System.Collections;
 
 public class Unit : MonoBehaviour
 {
-	PathFollower pathFollower;	
-		
+    [SerializeField]
+	private PathFollower pathFollower;
+
+    [SerializeField]
+    private Selectable selectable;
+
+    private void OnEnable()
+    {
+        selectable.init(this);
+        selectable.OnEnable();
+    }
+
+    private void OnDisable()
+    {
+        selectable.OnDisable();
+    }
 	public void FollowPath(VecInt[] path){
-		pathFollower = new PathFollower (this);
+        
+		pathFollower.Init (this);
 		pathFollower.SetPath (path);
 	}
 

@@ -58,7 +58,7 @@ public class LevelData : MonoBehaviour{
 
         collsionData = new bool[width, height];
 
-        objectData = RandomData.RandomTestData(size, size, new int[] { 0, 0, 0, 0, 0, 0, 1 });
+        objectData = RandomData.RandomTestData(size, size, new int[] { 0, 0, 0, 0, 0, 0, 1,2 });
 		BuildObjects(objectData);
 
         buildingList = new List<Building>();

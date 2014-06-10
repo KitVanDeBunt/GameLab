@@ -3,7 +3,9 @@
 	public static event Select OnSelect;
 	
 	public static void CallOnSelect(int[] selectedID){
-		OnSelect(selectedID);
+        if (OnSelect != null){
+            OnSelect(selectedID);
+        }
 	}
 
 	public delegate void GuiInput(string message);

@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class CheckNewPosition : MonoBehaviour {
-	private AnimFramesManager frameManager;
+    private AnimFramesManager frameManager;
 	private void Start(){
 		frameManager = gameObject.GetComponent<AnimFramesManager>();
 	}
-	public int oldRotationStateNumber = 10;
-	public int newRotationStateNumber = 1;
+	private int oldRotationStateNumber = 10;
+    private int newRotationStateNumber = 1;
 	// Update is called once per frame
 	public bool CheckNewPos (VecInt oldPos, VecInt newPos,float delay) {
 		//////for with 8 states

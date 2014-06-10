@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class PathFollower
 {
+    [SerializeField]
+    private RotationHandler rotationHandler;
+
 	private Vector3 pos;
 	private VecInt[] currentPath;
 	private int pathProgress;
@@ -12,18 +16,16 @@ public class PathFollower
 	private VecInt oldPos;
 	private bool turnUnit;
 	
-	private CheckNewPosition rotater;
+	//private CheckNewPosition rotater;
 	
 	private VecInt startPos;
 	private VecInt endPos;
 
-	internal PathFollower(MonoBehaviour _creator){
+	internal void Init(MonoBehaviour _creator){
         creator = _creator;
-        rotater = creator.transform.gameObject.GetComponent<CheckNewPosition>();
-		Init ();
-	}
-
-	internal void Init(){
+        //rotater = creator.transform.gameObject.GetComponent<CheckNewPosition>();
+        //rotationHandler = new RotationHandler();
+        rotationHandler.Init(_creator);
         pos = creator.transform.position;
         oldWorldPos = creator.transform.position;
 	}
@@ -110,7 +112,7 @@ public class PathFollower
         {
             if (checkNextPosFree(currentPath[pathProgress + 1], oldPos))
             {
-                turnUnit = rotater.CheckNewPos(oldPos, currentPath[pathProgress + 1],0.125f);
+                turnUnit = rotationHandler.CheckRotation(oldPos, currentPath[pathProgress + 1], 0.125f);
                 oldPos = currentPath[pathProgress + 1];
                 if (turnUnit)
                 {
