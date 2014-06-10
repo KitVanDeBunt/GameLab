@@ -51,11 +51,11 @@ public class Main : MonoBehaviour
         Debug.Log("[Main]: Event Message:" + message);
         if (message == "StartGame")
         {
-            Application.LoadLevel("kit");
+            Application.LoadLevel(Levels.kit);
         }
         else if (message == "Menu")
         {
-            Application.LoadLevel("MainMenu");
+            Application.LoadLevel(Levels.MainMenu);
         }
     }
 }
