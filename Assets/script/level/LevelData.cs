@@ -21,7 +21,6 @@ public class LevelData : MonoBehaviour{
 	public static GameObject[,] LoadedGroundTiles;
 	public static MapObject[,] GroundVehicles;
 	public static int width,height;
-	public static int[,] tileData;
 	public static int[,] objectData;
 	private static bool[,] collsionData;
 	public static List<Building> buildingList;
@@ -35,11 +34,7 @@ public class LevelData : MonoBehaviour{
 	}
 
 	public static int size;
-
 	private static int w,h;
-
-	private static int energyLevel;
-	public static bool ENERGY = true;
 
 	private void Start(){
 		levelHolder = new GameObject("LevelHolder");
@@ -53,73 +48,27 @@ public class LevelData : MonoBehaviour{
 	}
 
 	public static void LoadLevelData () {
-		size = 50;
-
+		
+        size = 50;
 		generator.Generate(size);
+		width = generator.data.GetLength(0);
+        height = generator.data.GetLength(1);
+        
+        BuildTiles(generator.data);
 
-		width = tileData.GetLength(0);
-		height = tileData.GetLength(1);
-		collsionData = new bool[size,size];
-		objectData = RandomTestData (size,size,new int[]{0,0,0,0,0,0,1});
-		buildingList = new List<Building>();
+        collsionData = new bool[width, height];
 
-		BuildTiles (tileData);
+        objectData = RandomData.RandomTestData(size, size, new int[] { 0, 0, 0, 0, 0, 0, 0 });
 		BuildObjects(objectData);
 
-		for(int j = 0; j < 16; j++) {
+        buildingList = new List<Building>();
+		for(int j = 0; j < 1; j++) {
 			constructBuilding(5 , 6 + j * 2     , 0, 2);
 			constructBuilding(9 , 6 + j * 2     , 1, 2);
 			constructBuilding(13, 6 + j * 2     , 2, 2);
 			constructBuilding(15, 6 + j * 2     , 3, 1);
 			constructBuilding(15, 6 + j * 2 + 1 , 3, 1);
 		}
-	}
-
-	private static int[,] RandomTestData(int width,int height, int[] choice){
-		int[,] data;
-		data = new int[width,height];
-		for (h = 0; h<height; h++) {
-			for (w = 0; w<width; w++) {
-				data [w, h] = (int)Random.Range(0,choice.Length);
-				data [w, h] = choice[data [w, h]];
-			}
-		}
-		return data;
-	}
-
-	public static void calculateEnegy() {
-		energyLevel = 0;
-
-		int buildingLength = buildingList.Count;
-		for(int i = 0; i < buildingLength; i++) {
-			energyLevel += buildingList[i].getEnergyUsage();
-		}
-
-		if(energyLevel > -1 && !ENERGY) {
-			ENERGY = true;
-			onEnergyStateChange();
-		} else if(energyLevel < 0 && ENERGY) {
-			ENERGY = false;
-			onEnergyStateChange();
-		}
-	}
-
-	private static void onEnergyStateChange() {
-		Debug.Log (ENERGY);
-		for(int i = buildingList.Count - 1; i > -1; i-- ) {
-			buildingList[i].onEnergyStateChange(ENERGY);
-		}
-	}
-
-	public static bool canConstructHere(int x, int y, int size) {
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				if(collsionData[x + i, y + j]) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	public static bool constructBuilding(int x, int y, int id, int size) {
@@ -144,13 +93,6 @@ public class LevelData : MonoBehaviour{
 		//buildingList.Add(s);
 		//calculateEnegy();
 		return true;
-	}
-
-	public static Vector3 addSizeToPosition(Vector3 vec, int width, int height) {
-		float px = vec.x - ((width - 1f) * 0.5f);
-		float py = vec.y + ((height - width) * 0.25f);
-		Vector2 tilepos = IsoMath.worldToTile(vec.x, vec.y);
-		return new Vector3(px, py, (tilepos.y + (size - tilepos.x)) / 2.5f + 2f);
 	}
 	
 	private static void BuildObjects (int[,] data) {

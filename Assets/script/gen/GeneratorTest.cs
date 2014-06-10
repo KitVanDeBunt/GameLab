@@ -2,6 +2,16 @@
 using System.Collections;
 
 public class GeneratorTest : IGenerator {
+    private int[,] privateData;
+
+    public int[,] data
+    {
+        get
+        {
+            return privateData;
+        }
+    }
+
 	public void Generate(int size) {
 		int seed = (int)Random.Range(-10000,10000);
 		GenerateSurface(size, seed);
@@ -19,6 +29,6 @@ public class GeneratorTest : IGenerator {
 			}
 		}
 
-		LevelData.tileData = tiles;
+        privateData = tiles;
 	}
 }

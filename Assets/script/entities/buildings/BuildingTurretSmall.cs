@@ -15,10 +15,10 @@ public class BuildingTurretSmall : Building {
 		buildingWidth = width;
 		buildingHeight = height;
 		spriterenderer = GetComponent<SpriteRenderer>();
-		onEnergyStateChange(LevelData.ENERGY);
+        onEnergyStateChange(EnergyManager.ENERGY);
 		LevelData.buildingList.Add(this);
-		LevelData.calculateEnegy();
-		transform.position = LevelData.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight());	
+        EnergyManager.calculateEnegy();
+        transform.position = IsoMath.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight(), LevelData.size);	
 	}
 	
 	void Update () {

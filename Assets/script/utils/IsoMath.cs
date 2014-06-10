@@ -9,6 +9,25 @@ public class IsoMath : MonoBehaviour {
 	private static int i;
 	private static int j;
 
+    /*public static bool canConstructHere(int x, int y, int size) {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				if(collsionData[x + i, y + j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}*/
+
+    public static Vector3 addSizeToPosition(Vector3 vec, int width, int height,int size)
+    {
+        float px = vec.x - ((width - 1f) * 0.5f);
+        float py = vec.y + ((height - width) * 0.25f);
+        Vector2 tilepos = IsoMath.worldToTile(vec.x, vec.y);
+        return new Vector3(px, py, (tilepos.y + (size - tilepos.x)) / 2.5f + 2f);
+    }
+
 	public static Vector2 tileToWorld(int tileX, int tileY){
 		return new Vector2((tileY * tileW/2) + (tileX * tileW/2), -((tileX * tileH/2) - (tileY * tileH/2)));
 	}
