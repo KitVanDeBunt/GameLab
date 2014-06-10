@@ -8,8 +8,7 @@ public class GameInput {
 		//main.gui
 		if(Input.GetKey(KeyCode.R)){
 			game.UpdateMove ();
-		}else if(Input.GetKey(KeyCode.JoystickButton5))
-		{
+		}else if(Input.GetKey(KeyCode.JoystickButton5)){
 			game.UpdateMove();
 		}else{
 			game.UpdateSelect();
