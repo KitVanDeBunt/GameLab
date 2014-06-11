@@ -63,7 +63,7 @@ public class Game : MonoBehaviour {
 				for(int i = 0;i < selectedArea.Length;i++){
 					//Debug.Log("selected: ("+selectedArea[i].x+","+selectedArea[i].y+")");
 					//LevelData.LoadedGroundTiles[selectedArea[i].x,selectedArea[i].y].GetComponent<SpriteRenderer>().color = new Color(0,0,1,1);
-					MapObject Tempselected = LevelData.GroundVehicles [(int)selectedArea[i].x, (int)selectedArea[i].y];
+                    MapObject Tempselected = LevelData.GetMapObjects((int)selectedArea[i].x, (int)selectedArea[i].y);//LevelData.mapObjects [(int)selectedArea[i].x, (int)selectedArea[i].y];
 					if(Tempselected != null){
 						tempSelectedIds.Add(Tempselected.gameObject.GetInstanceID());
 						selected.Add(Tempselected);
@@ -86,9 +86,10 @@ public class Game : MonoBehaviour {
 				}else if(Input.GetMouseButtonDown(0)){
 				//single select
 					selected.Clear();
-					MapObject Tempselected = LevelData.GroundVehicles [(int)TilePos.x, (int)TilePos.y];
-					if(Tempselected != null){
-						selected.Add(LevelData.GroundVehicles [(int)TilePos.x, (int)TilePos.y]);
+					//MapObject Tempselected = LevelData.mapObjects [(int)TilePos.x, (int)TilePos.y];
+                    MapObject Tempselected = LevelData.GetMapObjects((int)TilePos.x, (int)TilePos.y);
+                    if(Tempselected != null){
+                        selected.Add(Tempselected);
 						selectedIDs = new int[]{selected[0].gameObject.GetInstanceID()};
 						Debug.Log("[Main] selected: "+selectedIDs.Length);
 					}else{

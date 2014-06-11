@@ -19,11 +19,11 @@ public class LevelData : MonoBehaviour{
 	private static IGenerator generator;
 
 	public static GameObject[,] LoadedGroundTiles;
-	public static MapObject[,] GroundVehicles;
+	public static List<MapObject> mapObjects;
 	public static int width,height;
 	public static int[,] objectData;
 	private static bool[,] collsionData;
-	public static List<Building> buildingList;
+	//public static List<Building> buildingList;
 	
 	private static GameObject levelHolder;
 	
@@ -47,6 +47,31 @@ public class LevelData : MonoBehaviour{
 		LoadLevelData ();
 	}
 
+    public static MapObject GetMapObjects(int x,int y)
+    {
+        for (int i = 0; i < mapObjects.Count; i++)
+        {
+            if (mapObjects[i].pos.x == x && mapObjects[i].pos.y == y)
+            {
+                return mapObjects[i];
+            }
+        }
+        return null;
+    }
+
+    public static Building[] GetAllBuildings()
+    {
+        List<Building> returnBuildings = new List<Building>();
+        for (int i = 0; i < mapObjects.Count; i++)
+        {
+            if (mapObjects[i] is Building)
+            {
+                returnBuildings.Add((Building)mapObjects[i]);
+            }
+        }
+        return returnBuildings.ToArray();
+    }
+
 	public static void LoadLevelData () {
 		
         size = 50;
@@ -61,7 +86,7 @@ public class LevelData : MonoBehaviour{
         objectData = RandomData.RandomTestData(size, size, new int[] { 0, 0, 0, 0, 0, 0, 1,2 });
 		BuildObjects(objectData);
 
-        buildingList = new List<Building>();
+        //buildingList = new List<Building>();
 		for(int j = 0; j < 1; j++) {
 			constructBuilding(5 , 6 + j * 2     , 0, 2);
 			constructBuilding(9 , 6 + j * 2     , 1, 2);
@@ -97,16 +122,18 @@ public class LevelData : MonoBehaviour{
 	
 	private static void BuildObjects (int[,] data) {
 		//Debug.Log ("width: "+width+" height: "+height);
-		GroundVehicles = new MapObject[width,height];
+		mapObjects = new List<MapObject>();
 		for (h = 0; h < height; h++) {
 			for (w = 0; w < width; w++) {
 				int objectID = data[w,h];
 				if(objectID != 0){
 					objectID -= 1;
 					Vector2 pos = IsoMath.tileToWorld(w,h);
-					GameObject tile = (GameObject)GameObject.Instantiate (staticObjects[objectID], new Vector3 (pos.x, pos.y, (h + (size - w)) / 2.5f + 2f), new Quaternion ());
-					tile.transform.parent = levelHolder.transform;
-					GroundVehicles[w,h] = new MapObject(tile,new VecInt(w,h));
+                    GameObject newBuilding = (GameObject)GameObject.Instantiate(staticObjects[objectID], new Vector3(pos.x, pos.y, (h + (size - w)) / 2.5f + 2f), new Quaternion());
+                    MapObject newBuildingMapObject = (MapObject)newBuilding.GetComponent<MapObject>();
+                    newBuilding.transform.parent = levelHolder.transform;
+                    newBuildingMapObject.pos = new VecInt(w, h);
+                    mapObjects.Add(newBuildingMapObject);
 					collsionData[w,h] = true;
 				}
 			}

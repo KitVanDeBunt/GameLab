@@ -9,10 +9,11 @@ public class EnergyManager
     {
         energyLevel = 0;
 
-        int buildingLength = LevelData.buildingList.Count;
+        Building[] buildings = LevelData.GetAllBuildings();
+        int buildingLength = buildings.Length;
         for (int i = 0; i < buildingLength; i++)
         {
-            energyLevel += LevelData.buildingList[i].getEnergyUsage();
+            energyLevel += buildings[i].getEnergyUsage();
         }
 
         if (energyLevel > -1 && !ENERGY)
@@ -30,9 +31,11 @@ public class EnergyManager
     public static void onEnergyStateChange()
     {
         Debug.Log(ENERGY);
-        for (int i = LevelData.buildingList.Count - 1; i > -1; i--)
+        Building[] buildings = LevelData.GetAllBuildings();
+        int buildingLength = buildings.Length;
+        for (int i = buildingLength - 1; i > -1; i--)
         {
-            LevelData.buildingList[i].onEnergyStateChange(ENERGY);
+            buildings[i].onEnergyStateChange(ENERGY);
         }
     }
 }

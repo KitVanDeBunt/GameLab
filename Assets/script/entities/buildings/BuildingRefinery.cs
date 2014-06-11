@@ -12,11 +12,11 @@ public class BuildingRefinery : Building {
 		health = 140;
 
 		health = maxHealth;
-		buildingWidth = width;
-		buildingHeight = height;
+		size.x = width;
+        size.y = height;
 		spriterenderer = GetComponent<SpriteRenderer>();
         onEnergyStateChange(EnergyManager.ENERGY);
-		LevelData.buildingList.Add(this);
+		LevelData.mapObjects.Add(this);
         EnergyManager.calculateEnegy();
         transform.position = IsoMath.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight(), LevelData.size);	
 	}

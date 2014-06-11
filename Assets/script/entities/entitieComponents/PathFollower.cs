@@ -46,7 +46,7 @@ public class PathFollower
 	
 	private bool checkNextPosFree(VecInt next,VecInt current){
 		//check collision array
-		if (LevelData.GroundVehicles [next.x, next.y] !=null) {
+		if (LevelData.GetMapObjects (next.x, next.y) !=null) {
 			//set new path
 			//Debug.Log("newPath!!!!!!!!!!!!!!");
 
@@ -61,9 +61,15 @@ public class PathFollower
 			//Debug.Log(current.print+" Cur: "+LevelData.GroundVehicles [current.x, current.y]);
 			//Debug.Log(next.print+" Next: "+LevelData.GroundVehicles [next.x, next.y]);
 
-			LevelData.GroundVehicles [next.x, next.y] = LevelData.GroundVehicles [current.x, current.y];
-			LevelData.GroundVehicles [next.x, next.y].pos = next;
-			LevelData.GroundVehicles [current.x, current.y] = null;
+            /*
+            LevelData.mapObjects[next.x, next.y] = LevelData.mapObjects[current.x, current.y];
+            LevelData.mapObjects[next.x, next.y].pos = next;
+            LevelData.mapObjects[current.x, current.y] = null;
+            LevelData.objectData[current.x, current.y] = 0;
+            LevelData.objectData[next.x, next.y] = 1;
+            */
+
+            LevelData.GetMapObjects(current.x, current.y).pos = next;
 			LevelData.objectData [current.x, current.y] = 0;
 			LevelData.objectData [next.x, next.y] = 1;
 

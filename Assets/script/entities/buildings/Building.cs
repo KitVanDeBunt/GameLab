@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class Building : MonoBehaviour {
+public class Building : MapObject {
 	public int buyAmount;
 	public int sellAmount;
 	public int energy;
 	public int maxHealth;
 	public int health;
 
-	public int buildingWidth;
-	public int buildingHeight;
+	//public int buildingWidth;
+	//public int buildingHeight;
 	
 	public SpriteRenderer spriterenderer;
 	
@@ -45,10 +45,10 @@ public class Building : MonoBehaviour {
 	}
 	
 	public int getBuildingWidth() {
-		return buildingWidth;
+		return size.x;
 	}
 	
 	public int getBuildingHeight() {
-		return buildingHeight;
+		return size.y;
 	}
 }
