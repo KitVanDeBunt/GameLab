@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -84,28 +83,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33a78fc2f1b135541b7197c75839428e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathFollower:
-    rotationHandler:
-      Up: {fileID: 21300002, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      RightUp: {fileID: 21300004, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      Right: {fileID: 21300010, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      RightDown: {fileID: 21300016, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      Down: {fileID: 21300014, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      LeftDown: {fileID: 21300012, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      Left: {fileID: 21300006, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      LeftUp: {fileID: 21300000, guid: 7ca69256189711749a07603a7da86690, type: 3}
-      sprite: {fileID: 21200000}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,15 +96,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathFollower:
     rotationHandler:
-      Up: {fileID: 0}
-      RightUp: {fileID: 0}
-      Right: {fileID: 0}
-      RightDown: {fileID: 0}
-      Down: {fileID: 0}
-      LeftDown: {fileID: 0}
-      Left: {fileID: 0}
-      LeftUp: {fileID: 0}
-      sprite: {fileID: 0}
+      Up: {fileID: 21300002, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      RightUp: {fileID: 21300004, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      Right: {fileID: 21300010, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      RightDown: {fileID: 21300016, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      Down: {fileID: 21300014, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      LeftDown: {fileID: 21300012, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      Left: {fileID: 21300006, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      LeftUp: {fileID: 21300000, guid: 7ca69256189711749a07603a7da86690, type: 3}
+      sprite: {fileID: 21200000}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -146,9 +123,9 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_SortingLayerID: 3427997089
+  m_SortingLayerID: 3873631373
   m_Sprite: {fileID: 21300000, guid: 7ca69256189711749a07603a7da86690, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002
