@@ -53,7 +53,8 @@ public class PathFollower
 			SetPath(PathFind.FindPath (
 				new VecInt(current.x,current.y)
 				, new VecInt(oldPos.x,oldPos.y)
-				, LevelData.CollsionData)
+				, LevelData.CollsionData
+                ,true)
 			 );
 			return false;
 		} else {
@@ -87,10 +88,13 @@ public class PathFollower
 	
 	internal void SetPath(VecInt[] path){
 		startPos = path[0];
-		Debug.Log ("[path] "+path[0].print);
+		
+        /*
+        Debug.Log ("[path] "+path[0].print);
 		Debug.Log ("[path] "+path[1].print);
 		Debug.Log ("[path] Lenght: "+path.Length);
-
+        */
+        
 		oldPos = startPos;
 		endPos = path[path.Length-1];
 		currentPath = path;

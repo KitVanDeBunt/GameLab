@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class PathFind : MonoBehaviour {
-	
+
 	//settings
 	private const bool alwayReturnPath = true;
 	
@@ -12,10 +13,14 @@ public class PathFind : MonoBehaviour {
 	private static List<Node> open;
 	private static List<Node> closed;
 	
-	private static VecInt[] drawPath;
-	public static void Update(){
+    public static void Update(){
+#if DRAW
 		DrawLast();
-	}
+#endif
+    }
+#if DRAW
+	private static VecInt[] drawPath;
+	
 	
 	private static void DrawLast(){
 		
@@ -27,7 +32,8 @@ public class PathFind : MonoBehaviour {
 			}
 		}
 	}
-	
+#endif
+
 	private static float EstimateDistance(VecInt a,VecInt b){
 		float deltaX = Mathf.Abs(a.x - b.x);	
 		float deltaY = Mathf.Abs(a.y - b.y);	
@@ -133,18 +139,30 @@ public class PathFind : MonoBehaviour {
 				return 0;
 		}
 	}
-	
-	
-	public static VecInt[] FindPath (VecInt A,VecInt B, bool[,] collisionArray){
+
+
+    public static VecInt[] FindPath(VecInt A, VecInt B, bool[,] collisionArray, bool ifBIsCollisionFindClosestNonCollision)
+    {
+        int width = collisionArray.GetLength(0);
+		int height = collisionArray.GetLength(1);
+        if (ifBIsCollisionFindClosestNonCollision)
+        {
+            if (collisionArray[B.x, B.y])
+            {
+                NewNode[] posibleB = SurroundingArea(B,width,height,collisionArray);
+                if (posibleB.Length > 0)
+                {
+                    B = new VecInt(posibleB[0].x, posibleB[0].y);
+                }
+            }
+        }
 		int i;
 		int j;
 		List<VecInt> returnPath = new List<VecInt>();
 		open = new List<Node>();
 		closed = new List<Node>();
-		int width = collisionArray.GetLength(0);
-		int height = collisionArray.GetLength(1);
 		//returnPath.Add(A);
-		print ("[PathFind] new path!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		//////print ("[PathFind] new path!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		
 		//add start node
 		Node startN = new Node(0,99999999,99999999,null,A.x,A.y);
@@ -165,9 +183,10 @@ public class PathFind : MonoBehaviour {
 			//print ("[PathFind] new open count"+newOpenList.Length);
 			for(j = 0; j <newOpenList.Length;j++){
 				//draw
+#if DRAW
 				Debug.DrawLine(IsoMath.tileToWorld(currentCheckNode.x,currentCheckNode.y)
 				               ,IsoMath.tileToWorld(newOpenList[j].x,newOpenList[j].y),Color.magenta,1.5f);
-				               
+#endif			               
 				bool inOPenList = false;
 				float newG = currentCheckNode.G+newOpenList[j].K;
 				float newH = EstimateDistance(newOpenList[j],B); 
@@ -190,7 +209,7 @@ public class PathFind : MonoBehaviour {
 					Node newN = new Node(newG,newH,newF,currentCheckNode,newOpenList[j].x,newOpenList[j].y);
 					//end found
 					if(newN.x==B.x&&newN.y==B.y){
-						print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!\n");
+						/////////////print ("[PathFind] end Foound!!!!!!!!!!!!!!!!!!!!\n");
 						endFound = true;
 						closed.Add(newN);
 						break;
@@ -205,15 +224,18 @@ public class PathFind : MonoBehaviour {
             closed.Add(currentCheckNode);
 			open.Remove(currentCheckNode);
 			if(open.Count==0){
-				print ("[PathFind] zero open!!!!!!!!!!!!!!!!!!!!\n");
+				/////////print ("[PathFind] zero open!!!!!!!!!!!!!!!!!!!!\n");
 				pathOpen = false;
 			}
 		}
 		//print ("[PathFind] whileLooped: "+whileLooped+"\n");
-		print ("[PathFind] Start: "+A.print+"\n");
+		
+        /*
+        print ("[PathFind] Start: "+A.print+"\n");
 		print ("[PathFind] Start Surounding: "+SurroundingArea(A,width,height,collisionArray).Length+"\n");
 		print ("[PathFind] Destination: "+B.print+"\n");
 		print ("[PathFind] Dist: "+EstimateDistance(A,B)+"\n");
+         */ 
 		//returnPath.Add(B);
 		
 		List<Node> tempReturnPath = new List<Node>();
@@ -258,12 +280,16 @@ public class PathFind : MonoBehaviour {
 		}
 		
 		if (endFound) {
+#if DRAW
 			drawPath = returnPath.ToArray();
+#endif
 			return returnPath.ToArray();
 		} else {
 			if(alwayReturnPath){
+#if DRAW
 				drawPath = returnPath.ToArray();
-				return returnPath.ToArray();
+#endif
+                return returnPath.ToArray();
 			}else{
 				return null;
 			}

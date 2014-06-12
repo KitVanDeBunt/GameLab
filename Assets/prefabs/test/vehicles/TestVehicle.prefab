@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 114: {fileID: 11400002}
   - 60: {fileID: 6000000}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: TestVehicle
   m_TagString: Untagged
@@ -68,16 +68,16 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_Poly:
     m_Paths:
-    - - {x: -.099999994, y: .119999997}
-      - {x: -.199999988, y: .0899999961}
-      - {x: -.199999988, y: -.049999997}
-      - {x: -.0599999987, y: -.159999996}
-      - {x: .119999997, y: -.159999996}
-      - {x: .149999991, y: -.149999991}
-      - {x: .189999998, y: -.0599999987}
-      - {x: .189999998, y: .0299999993}
-      - {x: .099999994, y: .119999997}
---- !u!114 &11400002
+    - - {x: -.119999997, y: .109999999}
+      - {x: -.199999988, y: .0599999987}
+      - {x: -.199999988, y: -.0299999993}
+      - {x: -.149999991, y: -.119999997}
+      - {x: -.0599999987, y: -.149999991}
+      - {x: .109999999, y: -.149999991}
+      - {x: .179999992, y: -.0899999961}
+      - {x: .179999992, y: .0299999993}
+      - {x: .0199999996, y: .109999999}
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef00681969a6e843821281a5b1f9611, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cf2c0940ad69e848aa22477f0205b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathFollower:
@@ -119,9 +119,9 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_SortingLayerID: 3873631373
+  m_SortingLayerID: 3427997089
   m_Sprite: {fileID: 21300000, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002

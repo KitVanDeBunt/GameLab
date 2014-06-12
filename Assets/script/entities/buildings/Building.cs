@@ -2,17 +2,38 @@ using UnityEngine;
 using System.Collections;
 
 public class Building : MapObject {
-	public int buyAmount;
-	public int sellAmount;
-	public int energy;
-	public int maxHealth;
-	public int health;
+    [SerializeField]
+    private int width = 2;
+    [SerializeField]
+    private int height = 3;
+    [SerializeField]
+	private int buyAmount;
+    [SerializeField]
+    private int sellAmount;
+    [SerializeField]
+    private int energy;
+    [SerializeField]
+    private int maxHealth;
+    //[SerializeField]
+    private int health;
 
 	//public int buildingWidth;
 	//public int buildingHeight;
 	
 	public SpriteRenderer spriterenderer;
-	
+
+    private void Start()
+    {
+        health = maxHealth;
+        size.x = width;
+        size.y = height;
+        spriterenderer = GetComponent<SpriteRenderer>();
+        LevelData.mapObjects.Add(this);
+        EnergyManager.calculateEnegy();
+        onEnergyStateChange(EnergyManager.ENERGY);
+        transform.position = IsoMath.addSizeToPosition(transform.position, getBuildingWidth(), getBuildingHeight(), LevelData.size);	
+    }
+
 	public bool damage(int amount) {
 		health -= amount;
 		if(health < 0)
@@ -23,7 +44,7 @@ public class Building : MapObject {
 	}
 	
 	public void onEnergyStateChange(bool state) {
-		if(state && energy > 0) { spriterenderer.color = Color.white; } else { spriterenderer.color = Color.gray; }
+		if(state) { spriterenderer.color = Color.white; } else { spriterenderer.color = Color.gray; }
 	}
 
 	//======================================

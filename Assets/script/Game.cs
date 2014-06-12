@@ -112,7 +112,8 @@ public class Game : MonoBehaviour {
 			VecInt[] newPath = PathFind.FindPath (
 				new VecInt(selected[i].pos.x,selected[i].pos.y)
 				, new VecInt((int)TilePos.x,(int)TilePos.y)
-				, LevelData.CollsionData);
+				, LevelData.CollsionData
+                , true);
 			if(newPath != null){
 				selected[i].gameObject.GetComponent<Unit>().FollowPath(newPath);
 			}

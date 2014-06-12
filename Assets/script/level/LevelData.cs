@@ -24,8 +24,11 @@ public class LevelData : MonoBehaviour{
 	public static int[,] objectData;
 	private static bool[,] collsionData;
 	//public static List<Building> buildingList;
-	
-	private static GameObject levelHolder;
+
+    private static GameObject levelHolder;
+    private static GameObject buildingHolder;
+    private static GameObject unitHolder;
+    private static GameObject tileHolder;
 	
 	public static bool[,] CollsionData{
 		get{
@@ -37,7 +40,13 @@ public class LevelData : MonoBehaviour{
 	private static int w,h;
 
 	private void Start(){
-		levelHolder = new GameObject("LevelHolder");
+        levelHolder = new GameObject("LevelHolder");
+        buildingHolder = new GameObject("buildingHolder");
+        buildingHolder.transform.parent = levelHolder.transform;
+        unitHolder = new GameObject("unitHolder");
+        unitHolder.transform.parent = levelHolder.transform;
+        tileHolder = new GameObject("tileHolder");
+        tileHolder.transform.parent = levelHolder.transform;
 		staticTiles = tiles;
 		staticObjects = objects;
 		staticBuildings = buildings;
@@ -83,12 +92,23 @@ public class LevelData : MonoBehaviour{
 
         collsionData = new bool[width, height];
 
-        objectData = RandomData.RandomTestData(size, size, new int[] { 0, 0, 0, 0, 0, 0, 1,2 });
+        objectData = RandomData.RandomTestData(size, size, new int[] { 
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2 
+        });
 		BuildObjects(objectData);
 
         //buildingList = new List<Building>();
 		for(int j = 0; j < 1; j++) {
-			constructBuilding(5 , 6 + j * 2     , 0, 2);
+			//constructBuilding(5 , 6 + j * 2     , 0, 2);
 			constructBuilding(9 , 6 + j * 2     , 1, 2);
 			constructBuilding(13, 6 + j * 2     , 2, 2);
 			constructBuilding(15, 6 + j * 2     , 3, 1);
@@ -99,7 +119,7 @@ public class LevelData : MonoBehaviour{
 	public static bool constructBuilding(int x, int y, int id, int size) {
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
-				if(collsionData[x + i, y + j]) {
+				if(collsionData[x - i, y - j]) {
 					return false;
 				}
 			}
@@ -107,13 +127,13 @@ public class LevelData : MonoBehaviour{
 
 		for(int k = 0; k < size; k++) {
 			for(int l = 0; l < size; l++) {
-				collsionData[x + k, y + l] = true;
+				collsionData[x - k, y - l] = true;
 			}
 		}
 
 		Vector2 pos = IsoMath.tileToWorld(x, y);
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, 0f), new Quaternion());
-		building.transform.parent = levelHolder.transform;
+        building.transform.parent = buildingHolder.transform;
 		//IBuilding s = (IBuilding)building.GetComponent(typeof(Building));  <--- is now done in the building start() func.
 		//buildingList.Add(s);
 		//calculateEnegy();
@@ -131,7 +151,7 @@ public class LevelData : MonoBehaviour{
 					Vector2 pos = IsoMath.tileToWorld(w,h);
                     GameObject newBuilding = (GameObject)GameObject.Instantiate(staticObjects[objectID], new Vector3(pos.x, pos.y, (h + (size - w)) / 2.5f + 2f), new Quaternion());
                     MapObject newBuildingMapObject = (MapObject)newBuilding.GetComponent<MapObject>();
-                    newBuilding.transform.parent = levelHolder.transform;
+                    newBuilding.transform.parent = unitHolder.transform;
                     newBuildingMapObject.pos = new VecInt(w, h);
                     mapObjects.Add(newBuildingMapObject);
 					collsionData[w,h] = true;
@@ -146,7 +166,7 @@ public class LevelData : MonoBehaviour{
 			for (w = 0; w < width; w++) {
 				Vector2 pos = IsoMath.tileToWorld(w,h); 
 				GameObject tile = (GameObject)GameObject.Instantiate (staticTiles[data[w,h]], new Vector3 (pos.x, pos.y, (h + (size - w)) / 2.5f + 10f), new Quaternion ());
-				tile.transform.parent = levelHolder.transform;
+                tile.transform.parent = tileHolder.transform;
 				LoadedGroundTiles[w,h] = (GameObject)tile;
 			}
 		}
