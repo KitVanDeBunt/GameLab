@@ -43,9 +43,9 @@ MonoBehaviour:
   height: 3
   buyAmount: 200
   sellAmount: 800
-  energy: 200
+  energyUsage: -100
+  eneryProduction: 0
   maxHealth: 140
-  health: 140
   spriterenderer: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:

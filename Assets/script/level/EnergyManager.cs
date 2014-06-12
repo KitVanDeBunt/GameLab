@@ -2,7 +2,9 @@
 
 public class EnergyManager
 {
-    private static int energyLevel;
+    private static int privateEnergyUsage = 0;
+    private static int privateEnergyProduction = 0;
+    private static int privateEnergyLevel = 0;
     private static bool pENERGY = true;
 
     public static bool ENERGY{
@@ -14,31 +16,31 @@ public class EnergyManager
 
     public static void calculateEnegy()
     {
-        energyLevel = 0;
+        privateEnergyUsage = 0;
+        privateEnergyProduction = 0;
+        privateEnergyLevel = 0;
 
         Building[] buildings = LevelData.GetAllBuildings();
         int buildingLength = buildings.Length;
-        for (int i = 0; i < buildingLength; i++)
-        {
-            energyLevel += buildings[i].getEnergyUsage();
+        for (int i = 0; i < buildingLength; i++) {
+            privateEnergyUsage += buildings[i].getEnergyUsage();
+            privateEnergyProduction += buildings[i].getEnergyProduction();
+            privateEnergyLevel = privateEnergyUsage+privateEnergyProduction;
         }
 
-        if (energyLevel > -1 && ENERGY)
-        {
+        if (privateEnergyLevel > -1 && !ENERGY){
             pENERGY = true;
             onEnergyStateChange();
         }
-        else if (energyLevel < 0 && !ENERGY)
-        {
+        else if (privateEnergyLevel < 0 && ENERGY) {
             pENERGY = false;
             onEnergyStateChange();
         }
         Debug.Log("[EnergyManager]: on: " + ENERGY);
-        Debug.Log("[EnergyManager]: level: " + energyLevel);
+        Debug.Log("[EnergyManager]: level: " + privateEnergyLevel);
     }
 
-    private static void onEnergyStateChange()
-    {
+    private static void onEnergyStateChange() {
         Debug.Log("[ change]: on: " + ENERGY);
         Debug.Log("[ change]: level: " + energyLevel);
         Building[] buildings = LevelData.GetAllBuildings();
@@ -47,6 +49,24 @@ public class EnergyManager
         for (int i = buildingLength - 1; i > -1; i--)
         {
             buildings[i].onEnergyStateChange(ENERGY);
+        }
+    }
+
+    public static int energyUsage {
+        get {
+            return privateEnergyUsage;
+        }
+    }
+
+    public static int energyProducion {
+        get {
+            return privateEnergyProduction;
+        }
+    }
+
+    public static int energyLevel {
+        get {
+            return privateEnergyLevel;
         }
     }
 }

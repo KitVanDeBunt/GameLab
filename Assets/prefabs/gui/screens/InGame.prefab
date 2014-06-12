@@ -47,12 +47,12 @@ MonoBehaviour:
     message: Menu
     parent: 8
     gameObject: {fileID: 100000, guid: b9b1e73253a33d748a5a351ea9705699, type: 2}
-  - x: -114
-    y: -24
+  - x: 0
+    y: 0
     isButton: 0
     message: 
     parent: 0
-    gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
+    gameObject: {fileID: 100000, guid: c9204060c808f6f4e83a5a72a4575bf9, type: 2}
   - x: -50
     y: -100
     isButton: 1

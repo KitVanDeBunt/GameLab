@@ -39,12 +39,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 100000, guid: 2ae0a20b6aca39c4aa5976615ee1a2d8, type: 2}
-  - {fileID: 100000, guid: 27c41015b9d3fed48a174c798521c725, type: 2}
-  - {fileID: 100000, guid: 1cacdc1b2e0b1624aa707fb71d3712e6, type: 2}
+  - {fileID: 100000, guid: 782fedca4afefc54a90e07ddd506d249, type: 2}
+  - {fileID: 100000, guid: 41d21ef579c9a8146bf769e45122c017, type: 2}
+  - {fileID: 100000, guid: 28b92afb2eb7d2d40a4bc54fc3337b9c, type: 2}
   objects:
   - {fileID: 100000, guid: 4165a74c5bba15445b97635d447dda59, type: 2}
-  - {fileID: 100000, guid: 4165a74c5bba15445b97635d447dda59, type: 2}
+  - {fileID: 100000, guid: 5b4866296138fc840a7f091a2049633f, type: 2}
   buildings:
   - {fileID: 100000, guid: a67a4c228ff114c4e9c3de7e94a7fb56, type: 2}
   - {fileID: 100000, guid: 9b90e3f3210d64840941b5c8147f025a, type: 2}

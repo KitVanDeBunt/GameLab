@@ -11,7 +11,9 @@ public class Building : MapObject {
     [SerializeField]
     private int sellAmount;
     [SerializeField]
-    private int energy;
+    private int energyUsage;
+    [SerializeField]
+    private int eneryProduction;
     [SerializeField]
     private int maxHealth;
     //[SerializeField]
@@ -54,8 +56,13 @@ public class Building : MapObject {
 	}
 	
 	public int getEnergyUsage() {
-		return energy;
+		return energyUsage;
 	}
+
+    public int getEnergyProduction()
+    {
+        return eneryProduction;
+    }
 	
 	public int getBuyAmount() {
 		return buyAmount;
