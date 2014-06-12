@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
+  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: TestEnemy
@@ -85,7 +86,7 @@ Transform:
   m_Father: {fileID: 400000}
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
@@ -105,6 +106,28 @@ MonoBehaviour:
       Left: {fileID: 21300006, guid: 7ca69256189711749a07603a7da86690, type: 3}
       LeftUp: {fileID: 21300000, guid: 7ca69256189711749a07603a7da86690, type: 3}
       sprite: {fileID: 21200000}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef00681969a6e843821281a5b1f9611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFollower:
+    rotationHandler:
+      Up: {fileID: 0}
+      RightUp: {fileID: 0}
+      Right: {fileID: 0}
+      RightDown: {fileID: 0}
+      Down: {fileID: 0}
+      LeftDown: {fileID: 0}
+      Left: {fileID: 0}
+      LeftUp: {fileID: 0}
+      sprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

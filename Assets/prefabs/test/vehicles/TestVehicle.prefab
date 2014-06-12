@@ -85,22 +85,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf2c0940ad69e848aa22477f0205b5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ef00681969a6e843821281a5b1f9611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathFollower:
     rotationHandler:
-      Up: {fileID: 21300002, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      RightUp: {fileID: 21300004, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      Right: {fileID: 21300010, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      RightDown: {fileID: 21300016, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      Down: {fileID: 21300014, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      LeftDown: {fileID: 21300012, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      Left: {fileID: 21300006, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      LeftUp: {fileID: 21300000, guid: 97834bf6943bc9944b6873820e1d23a4, type: 3}
-      sprite: {fileID: 21200000}
-  selectable:
-    selectIcon: {fileID: 100002}
+      Up: {fileID: 0}
+      RightUp: {fileID: 0}
+      Right: {fileID: 0}
+      RightDown: {fileID: 0}
+      Down: {fileID: 0}
+      LeftDown: {fileID: 0}
+      Left: {fileID: 0}
+      LeftUp: {fileID: 0}
+      sprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

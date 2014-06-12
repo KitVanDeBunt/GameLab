@@ -8,12 +8,15 @@ enum InputState{
 	buildingPlace
 }
 public class Game : MonoBehaviour {
-	
+
 	[SerializeField]
 	private Camera cam;
 	[SerializeField]
 	private GameObject multiSelectArea;
-	
+
+	[SerializeField]
+	private GameObject preBuildImage;
+
 	private bool mouseDown = false;
 	private Vector2 oldPos;
 	private int[] selectedIDs;
@@ -22,6 +25,7 @@ public class Game : MonoBehaviour {
 	//private bool multiselect;
 	private Vector3 startMousePos;
 	private VecInt startTilePos;
+	private bool releasingPreBuildImage;
 	private InputState state;
 
 	private static Game _instance;
@@ -42,12 +46,42 @@ public class Game : MonoBehaviour {
 		EventManager.OnGuiInput -= GuiInput;
 	}
 	private void GuiInput(string message){
-		Debug.Log("[Game]: Event Message:"+message);
+		Debug.Log("[Game]: Event Message: "+message);
 		if (message == "Button1") {
-			Vector2 hello = IsoMath.worldToTile(transform.position.x,transform.position.y);
+			Debug.Log("clicked the first time");
+			fullPreBuildImage(LevelData.staticBuildings[0]);
+			Debug.Log(preBuildImage);
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
+		}
+	}
+	public bool fullPreBuildImage(GameObject buildingSprite){
+		preBuildImage.GetComponent<SpriteRenderer>().sprite = buildingSprite.GetComponent<SpriteRenderer>().sprite;
+		Color color = preBuildImage.renderer.material.color;
+		color.a = 0.5f;
+		preBuildImage.renderer.material.color = color;
+		return true;
+	}
+	private IEnumerator PreBuildImageFollowCursor(){
+		Vector2 currentMousePos = IsoMath.getMouseWorldPosition();
+		if(Input.GetMouseButtonDown(0) && releasingPreBuildImage)
+		{
+			Vector2 hello = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
 			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
 			LevelData.constructBuilding(hello2.x,hello2.y,0,2);
+			Color color = preBuildImage.renderer.material.color;
+			color.a = 0;
+			preBuildImage.renderer.material.color = color;
+			//Debug.Log(releasingPreBuildImage);
+			releasingPreBuildImage = false;
+			//Debug.Log(releasingPreBuildImage);
+		}else{
+			preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
+			yield return new WaitForEndOfFrame();
+			StartCoroutine(PreBuildImageFollowCursor());
 		}
+
+		yield return 2;
 	}
 	public void UpdateSelect(){
 		Vector2? TilePosN = IsoMath.getMouseTilePosition();
@@ -92,6 +126,8 @@ public class Game : MonoBehaviour {
                         selected.Add(Tempselected);
 						selectedIDs = new int[]{selected[0].gameObject.GetInstanceID()};
 						Debug.Log("[Main] selected: "+selectedIDs.Length);
+					}else if(releasingPreBuildImage){
+						StartCoroutine(PreBuildImageFollowCursor());
 					}else{
 						selectedIDs = new int[]{};
 						Debug.Log("[Main] not selected: "+selectedIDs.Length);

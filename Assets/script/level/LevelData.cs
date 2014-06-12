@@ -14,7 +14,7 @@ public class LevelData : MonoBehaviour{
 	//PREFABS
 	private static GameObject[] staticTiles;
 	private static GameObject[] staticObjects;
-	private static GameObject[] staticBuildings;
+	public static GameObject[] staticBuildings;
 
 	private static IGenerator generator;
 
