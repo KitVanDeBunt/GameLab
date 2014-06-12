@@ -27,7 +27,7 @@ public class Game : MonoBehaviour {
 	private VecInt startTilePos;
 	private bool releasingPreBuildImage;
 	private InputState state;
-
+	private int buildingId;
 	private static Game _instance;
 
 	public static Game instance{
@@ -48,9 +48,18 @@ public class Game : MonoBehaviour {
 	private void GuiInput(string message){
 		Debug.Log("[Game]: Event Message: "+message);
 		if (message == "Button1") {
-			Debug.Log("clicked the first time");
 			fullPreBuildImage(LevelData.staticBuildings[0]);
-			Debug.Log(preBuildImage);
+			buildingId = 0;
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
+		}else if (message == "Button2") {
+			fullPreBuildImage(LevelData.staticBuildings[1]);
+			buildingId = 1;
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
+		}else if (message == "Button3") {
+			fullPreBuildImage(LevelData.staticBuildings[2]);
+			buildingId = 2;
 			StartCoroutine(PreBuildImageFollowCursor());
 			releasingPreBuildImage = true;
 		}
@@ -68,13 +77,11 @@ public class Game : MonoBehaviour {
 		{
 			Vector2 hello = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
 			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
-			LevelData.constructBuilding(hello2.x,hello2.y,0,2);
+			LevelData.constructBuilding(hello2.x,hello2.y,buildingId,2);
 			Color color = preBuildImage.renderer.material.color;
 			color.a = 0;
 			preBuildImage.renderer.material.color = color;
-			//Debug.Log(releasingPreBuildImage);
 			releasingPreBuildImage = false;
-			//Debug.Log(releasingPreBuildImage);
 		}else{
 			preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
 			yield return new WaitForEndOfFrame();
