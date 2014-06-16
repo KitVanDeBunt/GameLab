@@ -6,7 +6,7 @@ public class GuiBar : MonoBehaviour
     private GameObject Bar;
 
     public void UpdateBar(float amount, float maxAmount){
-        Debug.Log((float)(amount / maxAmount));
+        //Debug.Log((float)(amount / maxAmount));
         if (amount > 0 && maxAmount >0){
             Bar.transform.localScale = new Vector3((float)(amount/maxAmount),1.0f,1.0f);
         }else{
