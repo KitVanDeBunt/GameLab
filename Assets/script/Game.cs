@@ -50,15 +50,19 @@ public class Game : MonoBehaviour {
 		if (message == "Button1") {
 			fullPreBuildImage(LevelData.staticBuildings[0]);
 			buildingId = 0;
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
 		}else if (message == "Button2") {
 			fullPreBuildImage(LevelData.staticBuildings[1]);
 			buildingId = 1;
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
 		}else if (message == "Button3") {
 			fullPreBuildImage(LevelData.staticBuildings[2]);
 			buildingId = 2;
+			StartCoroutine(PreBuildImageFollowCursor());
+			releasingPreBuildImage = true;
 		}
-		StartCoroutine(PreBuildImageFollowCursor());
-		releasingPreBuildImage = true;
 	}
 	public bool fullPreBuildImage(GameObject buildingSprite){
 		preBuildImage.GetComponent<SpriteRenderer>().sprite = buildingSprite.GetComponent<SpriteRenderer>().sprite;
@@ -71,9 +75,9 @@ public class Game : MonoBehaviour {
 		Vector2 currentMousePos = IsoMath.getMouseWorldPosition();
 		if(Input.GetMouseButtonDown(0) && releasingPreBuildImage)
 		{
-			Vector2 mouseTilePos = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
-			VecInt mouseTileVecInt = new VecInt((int)mouseTilePos.x,(int)mouseTilePos.y);
-			LevelData.constructBuilding(mouseTileVecInt.x,mouseTileVecInt.y,buildingId,2);
+			Vector2 hello = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
+			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
+			LevelData.constructBuilding(hello2.x,hello2.y,buildingId,2);
 			Color color = preBuildImage.renderer.material.color;
 			color.a = 0;
 			preBuildImage.renderer.material.color = color;
