@@ -41,19 +41,19 @@ MonoBehaviour:
   id: 0
   name: 
   buttons:
-  - x: 0
+  - x: 115
     y: 60
     isButton: 1
     message: StartGame
     parent: 4
     gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
-  - x: 0
+  - x: 115
     y: 0
     isButton: 1
     message: Options
     parent: 4
     gameObject: {fileID: 100000, guid: 3f096dab280bee043a55430ff7fd2549, type: 2}
-  - x: 0
+  - x: 115
     y: -60
     isButton: 1
     message: Exit

@@ -30,6 +30,8 @@ public class Game : MonoBehaviour {
 	private int buildingId;
 	private static Game _instance;
 
+    private bool mouseButton1Up;
+
 	public static Game instance{
 		get{
 			return _instance;
@@ -65,6 +67,7 @@ public class Game : MonoBehaviour {
 		}
 	}
 	public bool fullPreBuildImage(GameObject buildingSprite){
+        state = InputState.buildingPlace;
 		preBuildImage.GetComponent<SpriteRenderer>().sprite = buildingSprite.GetComponent<SpriteRenderer>().sprite;
 		Color color = preBuildImage.renderer.material.color;
 		color.a = 0.5f;
@@ -73,7 +76,7 @@ public class Game : MonoBehaviour {
 	}
 	private IEnumerator PreBuildImageFollowCursor(){
 		Vector2 currentMousePos = IsoMath.getMouseWorldPosition();
-		if(Input.GetMouseButtonDown(0) && releasingPreBuildImage)
+        if (mouseButton1Up && releasingPreBuildImage)
 		{
 			Vector2 hello = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
 			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
@@ -82,6 +85,7 @@ public class Game : MonoBehaviour {
 			color.a = 0;
 			preBuildImage.renderer.material.color = color;
 			releasingPreBuildImage = false;
+            state = InputState.normal;
 		}else{
 			preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
 			yield return new WaitForEndOfFrame();
@@ -115,7 +119,8 @@ public class Game : MonoBehaviour {
 				state = InputState.normal;
 				multiSelectArea.SetActive(false);
 			}
-		}else{
+        }
+        else if (state == InputState.normal){
 			if(TilePosN!= null){
 				Vector2 TilePos = (Vector2)TilePosN;
 				//print ("tile: " + TilePos + "\n");
@@ -147,6 +152,7 @@ public class Game : MonoBehaviour {
 				}
 			}
 		}
+        mouseButton1Up = Input.GetMouseButtonUp(0);
 	}
 	private void FindNewPath(){
 		Vector2 TilePos = (Vector2)IsoMath.getMouseTilePosition();
