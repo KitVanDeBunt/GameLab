@@ -130,8 +130,19 @@ public class LevelData : MonoBehaviour{
 				collsionData[x - k, y - l] = true;
 			}
 		}
-
+		float allSizesX = 0;
+		float allSizesY = 0;
+		if(size == 1)
+		{
+			allSizesX = -0.1f;
+			allSizesY = 0.4f;
+		}else if(size == 3)
+		{
+			allSizesX = 0.47f;
+			allSizesY = -0.3f;
+		}
 		Vector2 pos = IsoMath.tileToWorld(x, y);
+		pos += new Vector2 (allSizesX, allSizesY);
 		GameObject building = (GameObject)GameObject.Instantiate (staticBuildings[id], new Vector3 (pos.x, pos.y, 0f), new Quaternion());
         building.transform.parent = buildingHolder.transform;
 		//IBuilding s = (IBuilding)building.GetComponent(typeof(Building));  <--- is now done in the building start() func.

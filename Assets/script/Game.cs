@@ -29,6 +29,7 @@ public class Game : MonoBehaviour {
 	private InputState state;
 	private int buildingId;
 	private static Game _instance;
+	private int buildingTileWidth = 2;
 
     private bool mouseButton1Up;
 
@@ -49,19 +50,26 @@ public class Game : MonoBehaviour {
 	}
 	private void GuiInput(string message){
 		Debug.Log("[Game]: Event Message: "+message);
+		bool buildSomething = true;
 		if (message == "Button1") {
 			fullPreBuildImage(LevelData.staticBuildings[0]);
 			buildingId = 0;
-			StartCoroutine(PreBuildImageFollowCursor());
-			releasingPreBuildImage = true;
 		}else if (message == "Button2") {
 			fullPreBuildImage(LevelData.staticBuildings[1]);
 			buildingId = 1;
-			StartCoroutine(PreBuildImageFollowCursor());
-			releasingPreBuildImage = true;
 		}else if (message == "Button3") {
 			fullPreBuildImage(LevelData.staticBuildings[2]);
 			buildingId = 2;
+		}else if (message == "Button4") {
+			fullPreBuildImage(LevelData.staticBuildings[3]);
+			buildingId = 3;
+		}else if (message == "Button5") {
+			fullPreBuildImage(LevelData.staticBuildings[4]);
+			buildingId = 4;
+		}else{
+			buildSomething = false;
+		}
+		if(buildSomething){
 			StartCoroutine(PreBuildImageFollowCursor());
 			releasingPreBuildImage = true;
 		}
@@ -78,16 +86,30 @@ public class Game : MonoBehaviour {
 		Vector2 currentMousePos = IsoMath.getMouseWorldPosition();
         if (mouseButton1Up && releasingPreBuildImage)
 		{
-			Vector2 hello = IsoMath.worldToTile(currentMousePos.x,currentMousePos.y);
+			float buildingTileWidthX = 0;
+			float buildingTileWidthY = 0;
+			Vector2 hello = IsoMath.worldToTile(currentMousePos.x - buildingTileWidthX,currentMousePos.y + buildingTileWidthY);
 			VecInt hello2 = new VecInt((int)hello.x,(int)hello.y);
-			LevelData.constructBuilding(hello2.x,hello2.y,buildingId,2);
+			LevelData.constructBuilding(hello2.x,hello2.y,buildingId,buildingTileWidth);
 			Color color = preBuildImage.renderer.material.color;
 			color.a = 0;
 			preBuildImage.renderer.material.color = color;
 			releasingPreBuildImage = false;
             state = InputState.normal;
 		}else{
-			preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
+			if(buildingId < 3)
+			{
+				buildingTileWidth = 2;
+				preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
+			}else if(buildingId == 3)
+			{
+				buildingTileWidth = 1;
+				preBuildImage.transform.position = new Vector3(currentMousePos.x-0.60f, currentMousePos.y+0.55f, 0);
+			}else if(buildingId == 4)
+			{
+				buildingTileWidth = 3;
+				preBuildImage.transform.position = new Vector3(currentMousePos.x+0.00f, currentMousePos.y+0.1f, 0);
+			}
 			yield return new WaitForEndOfFrame();
 			StartCoroutine(PreBuildImageFollowCursor());
 		}
