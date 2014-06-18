@@ -97,7 +97,7 @@ public class Game : MonoBehaviour {
 			releasingPreBuildImage = false;
             state = InputState.normal;
 		}else{
-			if(buildingId < 3)
+			if(buildingId < 2)
 			{
 				buildingTileWidth = 2;
 				preBuildImage.transform.position = new Vector3(currentMousePos.x-0.50f, currentMousePos.y+0.25f, 0);
@@ -105,7 +105,7 @@ public class Game : MonoBehaviour {
 			{
 				buildingTileWidth = 1;
 				preBuildImage.transform.position = new Vector3(currentMousePos.x-0.60f, currentMousePos.y+0.55f, 0);
-			}else if(buildingId == 4)
+			}else if(buildingId == 4 || buildingId == 2)
 			{
 				buildingTileWidth = 3;
 				preBuildImage.transform.position = new Vector3(currentMousePos.x+0.00f, currentMousePos.y+0.1f, 0);
