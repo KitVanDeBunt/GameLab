@@ -147,11 +147,14 @@ public class Game : MonoBehaviour {
 				Vector2 TilePos = (Vector2)TilePosN;
 				//print ("tile: " + TilePos + "\n");
 				//multi select
-				if(Input.GetMouseButtonDown(0)&&(Input.GetKey(KeyCode.RightControl)||Input.GetKey(KeyCode.LeftControl))){
+                if (Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.JoystickButton2)))
+                {
 					StartMultiSelect();
 					startTilePos = new VecInt((int)TilePos.x,(int)TilePos.y);
 					Debug.Log("[Main] Multiselect: "+startTilePos);//+selectedIDs.Length);
-				}else if(Input.GetMouseButtonDown(0)){
+                }
+                else if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.JoystickButton4))
+                {
 				//single select
 					selected.Clear();
 					//MapObject Tempselected = LevelData.mapObjects [(int)TilePos.x, (int)TilePos.y];
@@ -167,11 +170,22 @@ public class Game : MonoBehaviour {
 						Debug.Log("[Main] not selected: "+selectedIDs.Length);
 					}
 					EventManager.CallOnSelect(selectedIDs);
+                    #if UNITY_PSM || UNITY_ANDROID
+                }
+                else if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.JoystickButton4))
+                {
+                    if (selectedIDs.Length > 0)
+                    {
+                        FindNewPath();
+                    }
+                }
+                    #else
 				}else if(Input.GetMouseButtonDown(1)){
 					if(selectedIDs.Length > 0){
 						FindNewPath();
 					}
 				}
+                #endif
 			}
 		}
         mouseButton1Up = Input.GetMouseButtonUp(0);
@@ -198,18 +212,11 @@ public class Game : MonoBehaviour {
 		multiSelectArea.transform.localScale = Vector3.zero;
 	}
 	public void UpdateMove(){
-		Vector2? currentPos = null;
 		#if UNITY_PSM || UNITY_ANDROID
-
-		if(Input.GetAxis("RightStickXAxis")>0 || Input.GetAxis("RightStickYAxis")>0 )
-		{
-			if(currentPos != null && oldPos != null){
-				Vector2 deltaPos = (Vector2)new Vector2(Input.GetAxis("RightStickXAxis")*2, Input.GetAxis("RigthStickYAxis")*2);
-				Camera.main.transform.Translate(new Vector3(deltaPos.x,deltaPos.y,0));
-				oldPos = (Vector2)currentPos;
-			}
-		}
+        Vector2 deltaPos = new Vector2(Input.GetAxis("RightStickXAxis") * 0.2f, Input.GetAxis("RightStickYAxis") * -0.2f);
+		Camera.main.transform.Translate(new Vector3(deltaPos.x,deltaPos.y,0));
 		#else
+        Vector2? currentPos = null;
 		//Debug.Log(mouseDown);
 		if(Input.GetMouseButtonUp(0)){
 			mouseDown = false;
@@ -221,8 +228,6 @@ public class Game : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0)){
 			oldPos = (Vector2)currentPos;
 		}
-		
-		#endif
 		if(mouseDown){
 			if(currentPos != null && oldPos != null){
 				Vector2 deltaPos = (Vector2)currentPos - oldPos;
@@ -231,5 +236,7 @@ public class Game : MonoBehaviour {
 				oldPos = (Vector2)currentPos;
 			}
 		}
+		#endif
+		
 	}
 }
